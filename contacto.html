@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contáctanos para clases particulares de japonés - Aprender Japonés">
+    <meta name="keywords" content="japonés, clases particulares, contacto, aprender japonés">
+    <meta name="author" content="Daniel">
+    <meta name="robots" content="index, follow">
+    <title>Aprender Japonés - Contacto</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        /* Estilos adicionales para el formulario */
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #d32f2f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #a12323;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aprender Japonés</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="hiragana.html">Hiragana</a></li>
+                <li><a href="katakana.html">Katakana</a></li>
+                <li><a href="kanji.html">Kanji</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Contacto</h2>
+            <p>¿Interesado en clases particulares de japonés? Completa el formulario y te responderemos pronto.</p>
+        </section>
+
+        <form action="mailto:tuemail@example.com" method="post" enctype="text/plain">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required placeholder="tuemail@example.com">
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>© 2025 Aprender Japonés. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
