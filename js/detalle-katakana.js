@@ -1,4 +1,13 @@
 // Base de datos de Katakana con detalles
+/**
+ * Este objeto contiene cada carácter de hiragana como clave,
+ * y un objeto con la información correspondiente:
+ *   - char: El carácter en japonés.
+ *   - pron: La pronunciación (romaji).
+ *   - ejemplo: Un ejemplo de uso.
+ *   - trazo: La ruta al archivo SVG para dibujar la forma.
+ */
+
 const katakanaData = {
     // Grupo A
     "a": { char: "ア", pron: "A", ejemplo: "アメリカ (amerika - América)", trazo: "svg/katakana/a.svg" },
@@ -157,62 +166,114 @@ const katakanaData = {
     "pyo": { char: "ピョ", pron: "PYO", ejemplo: "ピョンピョン (pyonpyon - saltar)", trazo: "svg/katakana/pyo.svg" }
 };
 
-// Obtener el parámetro de la URL
-const params = new URLSearchParams(window.location.search);
-const katakanaKey = params.get("k"); // Cambié "h" por "k" para Katakana
+// -------------------------------------------------------------------------------------------
+// 2) MAPA DE TRAZOS (strokeCount) PARA KATAKANA (ya proporcionado, pero en JavaScript)
+// -------------------------------------------------------------------------------------------
+const katakanaStrokeCount = {
+    "ア": 2, "イ": 2, "ウ": 3, "エ": 3, "オ": 3,
+    "カ": 2, "キ": 3, "ク": 2, "ケ": 3, "コ": 2,
+    "サ": 3, "シ": 3, "ス": 2, "セ": 2, "ソ": 2,
+    "タ": 3, "チ": 3, "ツ": 3, "テ": 3, "ト": 2,
+    "ナ": 2, "ニ": 2, "ヌ": 2, "ネ": 4, "ノ": 1,
+    "ハ": 2, "ヒ": 2, "フ": 1, "ヘ": 1, "ホ": 4,
+    "マ": 2, "ミ": 3, "ム": 2, "メ": 2, "モ": 3,
+    "ヤ": 2, "ユ": 2, "ヨ": 3,
+    "ラ": 2, "リ": 2, "ル": 2, "レ": 1, "ロ": 3,
+    "ワ": 2, "ヲ": 3, "ン": 2,
+    "ガ": 4, "ギ": 5, "グ": 4, "ゲ": 5, "ゴ": 4,
+    "ザ": 5, "ジ": 5, "ズ": 4, "ゼ": 4, "ゾ": 4,
+    "ダ": 5, "ヂ": 5, "ヅ": 5, "デ": 5, "ド": 4,
+    "バ": 4, "ビ": 4, "ブ": 3, "ベ": 3, "ボ": 6,
+    "パ": 3, "ピ": 3, "プ": 2, "ペ": 2, "ポ": 5,
+    "ャ": 2, "ュ": 2, "ョ": 3
+};
 
-// Elementos del DOM
+// -------------------------------------------------------------------------------------------
+// 3) ASIGNAMOS strokeCount A CADA ENTRADA DE katakanaData, BASADO EN SU "char"
+// -------------------------------------------------------------------------------------------
+Object.keys(katakanaData).forEach(key => {
+    const katakanaChar = katakanaData[key].char; // p.ej. "ア"
+    if (katakanaStrokeCount[katakanaChar] !== undefined) {
+        katakanaData[key].strokeCount = katakanaStrokeCount[katakanaChar];
+    } else {
+        katakanaData[key].strokeCount = 0; // Valor por defecto si no está en el mapa
+    }
+});
+
+// -------------------------------------------------------------------------------------------
+// 4) OBTENER PARÁMETRO DE LA URL PARA SABER QUÉ KATAKANA MOSTRAR
+// -------------------------------------------------------------------------------------------
+const params = new URLSearchParams(window.location.search);
+const katakanaKey = params.get("k"); // Usamos "k" para Katakana en lugar de "h"
+
+// -------------------------------------------------------------------------------------------
+// 5) OBTENEMOS LOS ELEMENTOS DEL DOM DONDE MOSTRAREMOS LOS DATOS
+// -------------------------------------------------------------------------------------------
 const title = document.getElementById("katakana-title");
 const charElement = document.getElementById("katakana-char");
 const pronElement = document.getElementById("katakana-pron");
 const ejemploElement = document.getElementById("katakana-ejemplo");
-const canvas = document.createElement("canvas"); // Reemplazamos la imagen por un canvas
+
+// Creamos el canvas y lo agregamos al DOM
+const canvas = document.createElement("canvas");
 canvas.id = "drawing-canvas";
 canvas.width = 400;
 canvas.height = 400;
 document.querySelector(".detalle").appendChild(canvas);
 
-// Variables para dibujo
+// -------------------------------------------------------------------------------------------
+// VARIABLES PARA EL DIBUJO INTERACTIVO
+// -------------------------------------------------------------------------------------------
 let isDrawing = false;
 const strokes = [];
 let currentStroke = [];
-let strokeCount = 0;
 
-// Si existe el katakana, cargar datos y SVG
+// -------------------------------------------------------------------------------------------
+// 6) COMPROBAR SI EXISTE EL KATAKANA EN katakanaData y CARGAR SUS DATOS
+// -------------------------------------------------------------------------------------------
 if (katakanaKey && katakanaData[katakanaKey]) {
     const katakana = katakanaData[katakanaKey];
+
+    // Mostramos la info en pantalla
     title.textContent = `Katakana: ${katakana.pron}`;
     charElement.textContent = katakana.char;
     pronElement.textContent = katakana.pron;
     ejemploElement.textContent = katakana.ejemplo;
 
-    // Cargar el SVG como fondo
+    // Tomamos el número de trazos que se espera para este carácter
+    const requiredStrokes = katakana.strokeCount || 0;
+
+    // Cargar el SVG de fondo y llamar a setupCanvas
     fetch(katakana.trazo)
         .then(response => response.text())
         .then(svgText => {
             const parser = new DOMParser();
             const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
             const svgPath = svgDoc.querySelector("path").getAttribute("d");
-            setupCanvas(svgPath, katakana.strokeCount);
+            setupCanvas(svgPath, requiredStrokes);
         })
         .catch(err => console.error("Error cargando SVG:", err));
 } else {
     document.querySelector(".detalle").innerHTML = "<p>Katakana no encontrado.</p>";
 }
 
-// Configurar el canvas para dibujo interactivo
+// -------------------------------------------------------------------------------------------
+// 7) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS E INTERACTÚA CON EL USUARIO (DIBUJO)
+// -------------------------------------------------------------------------------------------
 function setupCanvas(svgPathData, requiredStrokes) {
     const ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    let strokeWidth = localStorage.getItem("strokeWidth") || 15;
 
-    // Dibujar el SVG como fondo
+    let strokeWidth = localStorage.getItem("strokeWidth") || 15;
+    let userStrokeCount = 0;
+
+    // Dibujamos el path SVG como fondo
     const path = new Path2D(svgPathData);
-    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Pink con opacidad como en Flutter
+    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Rosa semitransparente
     ctx.fill(path);
 
-    // Eventos de dibujo
+    // Eventos de mouse
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
@@ -227,7 +288,8 @@ function setupCanvas(svgPathData, requiredStrokes) {
         isDrawing = true;
         const pos = getPosition(e);
         currentStroke = [pos];
-        strokeCount++;
+        userStrokeCount++;
+
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
         ctx.strokeStyle = getRandomColor();
@@ -265,20 +327,22 @@ function setupCanvas(svgPathData, requiredStrokes) {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    // Botones para limpiar y validar (agregar al HTML o crear dinámicamente)
+    // Botones
     const clearButton = document.createElement("button");
     clearButton.textContent = "Limpiar";
     clearButton.addEventListener("click", () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fill(path); // Redibujar SVG de fondo
+        ctx.fill(path);
         strokes.length = 0;
-        strokeCount = 0;
+        userStrokeCount = 0;
     });
     document.querySelector(".detalle").appendChild(clearButton);
 
     const validateButton = document.createElement("button");
     validateButton.textContent = "Validar";
-    validateButton.addEventListener("click", () => validateDrawing(svgPathData, requiredStrokes));
+    validateButton.addEventListener("click", () => {
+        validateDrawing(svgPathData, requiredStrokes, userStrokeCount);
+    });
     document.querySelector(".detalle").appendChild(validateButton);
 
     const widthButton = document.createElement("button");
@@ -293,33 +357,43 @@ function setupCanvas(svgPathData, requiredStrokes) {
     document.querySelector(".detalle").appendChild(widthButton);
 }
 
-// Validación de trazos
-function validateDrawing(svgPathData, requiredStrokes) {
+// -------------------------------------------------------------------------------------------
+// 8) VALIDACIÓN DEL DIBUJO
+// -------------------------------------------------------------------------------------------
+function validateDrawing(svgPathData, requiredStrokes, userStrokeCount) {
     if (strokes.length === 0) {
         alert("Por favor, realiza algunos trazos antes de validar.");
         return;
     }
 
-    if (strokeCount !== requiredStrokes) {
-        alert(`Cantidad de trazos incorrecta. Realizaste ${strokeCount}/${requiredStrokes}.`);
+    if (userStrokeCount !== requiredStrokes) {
+        alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
         return;
     }
 
     const path = new Path2D(svgPathData);
-    const tolerance = 20; // Similar a Flutter
+    const tolerance = 20;
     let isAligned = true;
 
     strokes.forEach(stroke => {
         stroke.forEach(point => {
             let pointIsValid = false;
-            // Simulación simple de validación (más precisa requiere una librería como opentype.js)
-            const distance = Math.hypot(point.x - canvas.width / 2, point.y - canvas.height / 2);
-            if (distance < canvas.width / 2 + tolerance) { // Aproximación burda
+            const distance = Math.hypot(
+                point.x - (canvas.width / 2),
+                point.y - (canvas.height / 2)
+            );
+            if (distance < (canvas.width / 2 + tolerance)) {
                 pointIsValid = true;
             }
-            if (!pointIsValid) isAligned = false;
+            if (!pointIsValid) {
+                isAligned = false;
+            }
         });
     });
 
-    alert(isAligned ? "¡Dibujo válido!" : "Dibujo incorrecto. Intenta alinear mejor los trazos.");
+    if (!isAligned) {
+        alert("Dibujo incorrecto. Intenta alinear mejor los trazos.");
+    } else {
+        alert("¡Dibujo válido! Cantidad de trazos y posición aceptable.");
+    }
 }

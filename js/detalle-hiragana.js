@@ -1,4 +1,14 @@
-// Base de datos de Hiragana con detalles
+// -------------------------------------------------------------------------------------------
+// 1) OBJETO BASE DE DATOS DE HIRAGANA
+// -------------------------------------------------------------------------------------------
+/**
+ * Este objeto contiene cada carácter de hiragana como clave,
+ * y un objeto con la información correspondiente:
+ *   - char: El carácter en japonés.
+ *   - pron: La pronunciación (romaji).
+ *   - ejemplo: Un ejemplo de uso.
+ *   - trazo: La ruta al archivo SVG para dibujar la forma.
+ */
 const hiraganaData = {
     // Grupo A
     "a": { char: "あ", pron: "A", ejemplo: "あい (ai - amor)", trazo: "svg/hiragana/a.svg" },
@@ -59,7 +69,7 @@ const hiraganaData = {
     // Grupo WA y N
     "wa": { char: "わ", pron: "WA", ejemplo: "わたし (watashi - yo)", trazo: "svg/hiragana/wa.svg" },
     "wo": { char: "を", pron: "WO", ejemplo: "を (partícula objeto directo)", trazo: "svg/hiragana/wo.svg" },
-    "n": { char: "ん", pron: "N", ejemplo: "てん (ten - punto)", trazo: "svg/hiragana/n.svg" },
+    "n":  { char: "ん", pron: "N",  ejemplo: "てん (ten - punto)", trazo: "svg/hiragana/n.svg" },
 
     // Sonidos especiales - Grupo GA
     "ga": { char: "が", pron: "GA", ejemplo: "がっこう (gakkou - escuela)", trazo: "svg/hiragana/ga.svg" },
@@ -137,9 +147,9 @@ const hiraganaData = {
     "gyo": { char: "ぎょ", pron: "GYO", ejemplo: "ぎょかい (gyokai - industria pesquera)", trazo: "svg/hiragana/gyo.svg" },
 
     // Grupo Z (ZA)
-    "ja": { char: "じゃ", pron: "JA", ejemplo: "じゃあ (jaa - entonces)", trazo: "svg/hiragana/ja.svg" },
-    "ju": { char: "じゅ", pron: "JU", ejemplo: "じゅう (juu - diez)", trazo: "svg/hiragana/ju.svg" },
-    "jo": { char: "じょ", pron: "JO", ejemplo: "じょう (jou - castillo)", trazo: "svg/hiragana/jo.svg" },
+    "ja":  { char: "じゃ", pron: "JA", ejemplo: "じゃあ (jaa - entonces)", trazo: "svg/hiragana/ja.svg" },
+    "ju":  { char: "じゅ", pron: "JU", ejemplo: "じゅう (juu - diez)", trazo: "svg/hiragana/ju.svg" },
+    "jo":  { char: "じょ", pron: "JO", ejemplo: "じょう (jou - castillo)", trazo: "svg/hiragana/jo.svg" },
 
     // Grupo D (DA)
     "dya": { char: "ぢゃ", pron: "DYA", ejemplo: "ぢゃ (dya - variante de ja, raro)", trazo: "svg/hiragana/dya.svg" },
@@ -157,169 +167,273 @@ const hiraganaData = {
     "pyo": { char: "ぴょ", pron: "PYO", ejemplo: "ぴょん (pyon - salto)", trazo: "svg/hiragana/pyo.svg" }
 };
 
-// Obtener el parámetro de la URL
-const params = new URLSearchParams(window.location.search);
-const hiraganaKey = params.get("h");
+// -------------------------------------------------------------------------------------------
+// 2) MAPA DE TRAZOS (strokeCount) POR CADA CARÁCTER (EN JAVASCRIPT)
+// -------------------------------------------------------------------------------------------
+const hiraganaStrokeCount = {
+    "あ": 3, "い": 2, "う": 2, "え": 2, "お": 3,
+    "か": 3, "き": 4, "く": 1, "け": 3, "こ": 2,
+    "さ": 3, "し": 1, "す": 2, "せ": 3, "そ": 1,
+    "た": 4, "ち": 2, "つ": 1, "て": 1, "と": 2,
+    "な": 4, "に": 3, "ぬ": 2, "ね": 2, "の": 1,
+    "は": 3, "ひ": 1, "ふ": 4, "へ": 1, "ほ": 4,
+    "ま": 3, "み": 2, "む": 3, "め": 2, "も": 3,
+    "や": 3, "ゆ": 2, "よ": 2,
+    "ら": 2, "り": 2, "る": 1, "れ": 2, "ろ": 1,
+    "わ": 2, "を": 3, "ん": 1,
+    "が": 5, "ぎ": 6, "ぐ": 3, "げ": 5, "ご": 4,
+    "ざ": 5, "じ": 3, "ず": 4, "ぜ": 5, "ぞ": 3,
+    "だ": 6, "ぢ": 4, "づ": 3, "で": 3, "ど": 4,
+    "ば": 5, "び": 3, "ぶ": 6, "べ": 3, "ぼ": 6,
+    "ぱ": 4, "ぴ": 2, "ぷ": 5, "ぺ": 2, "ぽ": 5,
+    "っ": 1,
+    "ゃ": 3, "ゅ": 3, "ょ": 2
+  };
+  
 
-// Elementos del DOM
-const title = document.getElementById("hiragana-title");
-const charElement = document.getElementById("hiragana-char");
-const pronElement = document.getElementById("hiragana-pron");
-const ejemploElement = document.getElementById("hiragana-ejemplo");
-const canvas = document.createElement("canvas"); // Reemplazamos la imagen por un canvas
-canvas.id = "drawing-canvas";
-canvas.width = 400;
-canvas.height = 400;
-document.querySelector(".detalle").appendChild(canvas);
-
-// Variables para dibujo
-let isDrawing = false;
-const strokes = [];
-let currentStroke = [];
-let strokeCount = 0;
-
-// Si existe el hiragana, cargar datos y SVG
-if (hiraganaKey && hiraganaData[hiraganaKey]) {
+// -------------------------------------------------------------------------------------------
+// 3) ASIGNAMOS strokeCount A CADA ENTRADA DE hiraganaData, BASADO EN SU "char"
+// -------------------------------------------------------------------------------------------
+Object.keys(hiraganaData).forEach(key => {
+    const hiraganaChar = hiraganaData[key].char; // p.ej. "あ"
+    if (hiraganaStrokeCount[hiraganaChar] !== undefined) {
+      // Si existe en el mapa, lo asignamos
+      hiraganaData[key].strokeCount = hiraganaStrokeCount[hiraganaChar];
+    } else {
+      // Si no está en el mapa, lo dejamos en 0 o lo que prefieras
+      hiraganaData[key].strokeCount = 0;
+    }
+  });
+  
+  // -------------------------------------------------------------------------------------------
+  // 4) OBTENER PARÁMETRO DE LA URL PARA SABER QUÉ HIRAGANA MOSTRAR
+  // -------------------------------------------------------------------------------------------
+  const params = new URLSearchParams(window.location.search);
+  const hiraganaKey = params.get("h");
+  
+  // -------------------------------------------------------------------------------------------
+  // 5) OBTENEMOS LOS ELEMENTOS DEL DOM DONDE MOSTRAREMOS LOS DATOS
+  // -------------------------------------------------------------------------------------------
+  const title = document.getElementById("hiragana-title");
+  const charElement = document.getElementById("hiragana-char");
+  const pronElement = document.getElementById("hiragana-pron");
+  const ejemploElement = document.getElementById("hiragana-ejemplo");
+  
+  // Creamos el canvas (para dibujar sobre él) y lo agregamos al DOM
+  const canvas = document.createElement("canvas");
+  canvas.id = "drawing-canvas";
+  canvas.width = 400;
+  canvas.height = 400;
+  document.querySelector(".detalle").appendChild(canvas);
+  
+  // -------------------------------------------------------------------------------------------
+  // VARIABLES PARA EL DIBUJO INTERACTIVO
+  // -------------------------------------------------------------------------------------------
+  let isDrawing = false;       // Indica si el usuario está dibujando
+  const strokes = [];          // Almacena todos los trazos (cada uno es un array de puntos)
+  let currentStroke = [];      // Trazo actual antes de finalizarlo
+  
+  // -------------------------------------------------------------------------------------------
+  // 6) COMPROBAR SI EXISTE EL HIRAGANA EN hiraganaData y CARGAR SUS DATOS
+  // -------------------------------------------------------------------------------------------
+  if (hiraganaKey && hiraganaData[hiraganaKey]) {
     const hiragana = hiraganaData[hiraganaKey];
+  
+    // Mostramos la info en pantalla
     title.textContent = `Hiragana: ${hiragana.pron}`;
     charElement.textContent = hiragana.char;
     pronElement.textContent = hiragana.pron;
     ejemploElement.textContent = hiragana.ejemplo;
-
-    // Cargar el SVG como fondo
+  
+    // Tomamos el número de trazos que se espera para este carácter
+    const requiredStrokes = hiragana.strokeCount || 0;
+  
+    // Cargar el SVG de fondo y llamar a setupCanvas
     fetch(hiragana.trazo)
-        .then(response => response.text())
-        .then(svgText => {
-            const parser = new DOMParser();
-            const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
-            const svgPath = svgDoc.querySelector("path").getAttribute("d");
-            setupCanvas(svgPath, hiragana.strokeCount);
-        })
-        .catch(err => console.error("Error cargando SVG:", err));
-} else {
+      .then(response => response.text())
+      .then(svgText => {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+        const svgPath = svgDoc.querySelector("path").getAttribute("d");
+        
+        // Llamamos a setupCanvas con el path y la cantidad de trazos
+        setupCanvas(svgPath, requiredStrokes);
+      })
+      .catch(err => console.error("Error cargando SVG:", err));
+  
+  } else {
+    // Si la key 'h' no existe o no está en nuestro diccionario, avisamos
     document.querySelector(".detalle").innerHTML = "<p>Hiragana no encontrado.</p>";
-}
-
-// Configurar el canvas para dibujo interactivo
-function setupCanvas(svgPathData, requiredStrokes) {
+  }
+  
+  // -------------------------------------------------------------------------------------------
+  // 7) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS E INTERACTÚA CON EL USUARIO (DIBUJO)
+  // -------------------------------------------------------------------------------------------
+  function setupCanvas(svgPathData, requiredStrokes) {
     const ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+  
     let strokeWidth = localStorage.getItem("strokeWidth") || 15;
-
-    // Dibujar el SVG como fondo
+    
+    // Contador de trazos que el usuario ha hecho
+    let userStrokeCount = 0;
+  
+    // Dibujamos el path SVG como fondo
     const path = new Path2D(svgPathData);
-    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Pink con opacidad como en Flutter
+    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Ejemplo: rosa semitransparente
     ctx.fill(path);
-
-    // Eventos de dibujo
+  
+    // Eventos de mouse
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mouseout", stopDrawing);
-
+  
     // Eventos táctiles
     canvas.addEventListener("touchstart", startDrawing);
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", stopDrawing);
-
+  
+    /**
+     * Inicia el trazo
+     */
     function startDrawing(e) {
-        isDrawing = true;
-        const pos = getPosition(e);
-        currentStroke = [pos];
-        strokeCount++;
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-        ctx.strokeStyle = getRandomColor();
-        ctx.lineWidth = strokeWidth;
+      isDrawing = true;
+      const pos = getPosition(e);
+      currentStroke = [pos];
+  
+      // Iniciamos un nuevo trazo => incrementamos el contador de trazos del usuario
+      userStrokeCount++;
+  
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+      ctx.strokeStyle = getRandomColor();
+      ctx.lineWidth = strokeWidth;
     }
-
+  
+    /**
+     * Dibuja mientras el usuario mueve el mouse/toca la pantalla
+     */
     function draw(e) {
-        if (!isDrawing) return;
-        const pos = getPosition(e);
-        currentStroke.push(pos);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
+      if (!isDrawing) return;
+      const pos = getPosition(e);
+      currentStroke.push(pos);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
     }
-
+  
+    /**
+     * Finaliza el trazo
+     */
     function stopDrawing() {
-        if (isDrawing) {
-            strokes.push(currentStroke);
-            currentStroke = [];
-            isDrawing = false;
-        }
+      if (isDrawing) {
+        strokes.push(currentStroke);
+        currentStroke = [];
+        isDrawing = false;
+      }
     }
-
+  
+    /**
+     * Obtiene la posición (x, y) real en el canvas
+     */
     function getPosition(e) {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return {
-            x: clientX - rect.left,
-            y: clientY - rect.top
-        };
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
     }
-
+  
+    /**
+     * Color aleatorio para cada trazo
+     */
     function getRandomColor() {
-        const colors = ["blue", "red", "teal", "yellow", "purple", "green", "orange"];
-        return colors[Math.floor(Math.random() * colors.length)];
+      const colors = ["blue", "red", "teal", "yellow", "purple", "green", "orange"];
+      return colors[Math.floor(Math.random() * colors.length)];
     }
-
-    // Botones para limpiar y validar (agregar al HTML o crear dinámicamente)
+  
+    // ---------------------------------------------------------------------------------------
+    // BOTONES PARA LIMPIAR, VALIDAR Y CAMBIAR GROSOR
+    // ---------------------------------------------------------------------------------------
+    // Botón "Limpiar"
     const clearButton = document.createElement("button");
     clearButton.textContent = "Limpiar";
     clearButton.addEventListener("click", () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fill(path); // Redibujar SVG de fondo
-        strokes.length = 0;
-        strokeCount = 0;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fill(path); // Redibujamos la guía
+      strokes.length = 0;
+      userStrokeCount = 0;
     });
     document.querySelector(".detalle").appendChild(clearButton);
-
+  
+    // Botón "Validar"
     const validateButton = document.createElement("button");
     validateButton.textContent = "Validar";
-    validateButton.addEventListener("click", () => validateDrawing(svgPathData, requiredStrokes));
+    validateButton.addEventListener("click", () => {
+      validateDrawing(svgPathData, requiredStrokes, userStrokeCount);
+    });
     document.querySelector(".detalle").appendChild(validateButton);
-
+  
+    // Botón "Grosor"
     const widthButton = document.createElement("button");
     widthButton.textContent = "Grosor";
     widthButton.addEventListener("click", () => {
-        const newWidth = prompt("Ingresa el grosor del trazo (1-20):", strokeWidth);
-        if (newWidth && !isNaN(newWidth) && newWidth >= 1 && newWidth <= 20) {
-            strokeWidth = newWidth;
-            localStorage.setItem("strokeWidth", strokeWidth);
-        }
+      const newWidth = prompt("Ingresa el grosor del trazo (1-20):", strokeWidth);
+      if (newWidth && !isNaN(newWidth) && newWidth >= 1 && newWidth <= 20) {
+        strokeWidth = newWidth;
+        localStorage.setItem("strokeWidth", strokeWidth);
+      }
     });
     document.querySelector(".detalle").appendChild(widthButton);
-}
-
-// Validación de trazos
-function validateDrawing(svgPathData, requiredStrokes) {
+  }
+  
+  // -------------------------------------------------------------------------------------------
+  // 8) VALIDACIÓN DEL DIBUJO (comparar strokeCount y posición aproximada)
+  // -------------------------------------------------------------------------------------------
+  function validateDrawing(svgPathData, requiredStrokes, userStrokeCount) {
+    // 1. Validar si hay trazos
     if (strokes.length === 0) {
-        alert("Por favor, realiza algunos trazos antes de validar.");
-        return;
+      alert("Por favor, realiza algunos trazos antes de validar.");
+      return;
     }
-
-    if (strokeCount !== requiredStrokes) {
-        alert(`Cantidad de trazos incorrecta. Realizaste ${strokeCount}/${requiredStrokes}.`);
-        return;
+  
+    // 2. Comparar cantidad de trazos con los requeridos
+    if (userStrokeCount !== requiredStrokes) {
+      alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
+      return;
     }
-
+  
+    // 3. Validación muy simple de posición (opcional, se puede mejorar mucho)
     const path = new Path2D(svgPathData);
-    const tolerance = 20; // Similar a Flutter
+    const tolerance = 20;
     let isAligned = true;
-
+  
+    // Recorremos todos los puntos dibujados
     strokes.forEach(stroke => {
-        stroke.forEach(point => {
-            let pointIsValid = false;
-            // Simulación simple de validación (más precisa requiere una librería como opentype.js)
-            const distance = Math.hypot(point.x - canvas.width / 2, point.y - canvas.height / 2);
-            if (distance < canvas.width / 2 + tolerance) { // Aproximación burda
-                pointIsValid = true;
-            }
-            if (!pointIsValid) isAligned = false;
-        });
+      stroke.forEach(point => {
+        let pointIsValid = false;
+        // Ejemplo burdo: medimos distancia al centro
+        const distance = Math.hypot(
+          point.x - (canvas.width / 2),
+          point.y - (canvas.height / 2)
+        );
+        // Si está dentro de cierto rango, lo consideramos válido
+        if (distance < (canvas.width / 2 + tolerance)) {
+          pointIsValid = true;
+        }
+        if (!pointIsValid) {
+          isAligned = false;
+        }
+      });
     });
-
-    alert(isAligned ? "¡Dibujo válido!" : "Dibujo incorrecto. Intenta alinear mejor los trazos.");
-}
+  
+    // 4. Mostramos resultado
+    if (!isAligned) {
+      alert("Dibujo incorrecto. Intenta alinear mejor los trazos.");
+    } else {
+      alert("¡Dibujo válido! Cantidad de trazos y posición aceptable.");
+    }
+  }
