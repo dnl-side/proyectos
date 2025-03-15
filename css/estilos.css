@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 body {
     background-color: #f4f4f4;
     color: #333;
@@ -14,8 +15,10 @@ body {
     min-height: 100vh;
 }
 
+/* Asegurar que las listas no hereden centrado */
 ul {
-    text-align: left; 
+    text-align: left;
+    list-style: none; /* Eliminar los puntos predeterminados */
 }
 
 /* Header */
@@ -77,7 +80,7 @@ nav ul li a:hover {
 
 .beneficios ul li, .como-estudiar ul li {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Alinear al inicio para mejor control */
     background: #f9f9f9;
     margin: 10px 0;
     padding: 15px;
@@ -85,6 +88,7 @@ nav ul li a:hover {
     transition: background 0.3s;
     font-size: 1.1em;
     color: #333;
+    position: relative; /* Para manejar el ícono */
 }
 
 .beneficios ul li:hover, .como-estudiar ul li:hover {
@@ -93,9 +97,11 @@ nav ul li a:hover {
 
 /* Estilo para los emojis como íconos */
 .beneficios ul li::before, .como-estudiar ul li::before {
-    content: attr(data-icon); /* Usaremos un atributo data-icon para los emojis */
-    margin-right: 15px;
+    content: attr(data-icon); /* Usar el atributo data-icon para los emojis */
     font-size: 1.5em;
+    margin-right: 15px;
+    line-height: 1; /* Asegurar que el emoji no tenga espaciado extra */
+    display: inline-block; /* Asegurar que el ícono sea tratado como bloque */
 }
 
 /* Ajustar responsividad */
@@ -154,6 +160,7 @@ main {
     background: #a12323;
 }
 
+/* Resto del CSS (video, detalle, tablas, footer, etc.) permanece igual */
 .video iframe {
     margin-top: 20px;
     border-radius: 10px;
@@ -290,7 +297,7 @@ main {
 /* Tamaño grande para caracteres */
 .hiragana-big, .katakana-big, .kanji-big {
     font-size: 2.5em;
-    font-family: 'Arial', sans-serif; /* Usa una fuente que soporte japonés */
+    font-family: 'Arial', sans-serif;
 }
 
 /* Footer */
