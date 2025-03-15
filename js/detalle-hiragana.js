@@ -399,7 +399,7 @@ Object.keys(hiraganaData).forEach(key => {
     const validateButton = document.createElement("button");
     validateButton.textContent = "Validar";
     validateButton.addEventListener("click", () => {
-        validateDrawing(svgPathData, requiredStrokes, userStrokeCount);
+        validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale);
     });
     document.querySelector(".detalle").appendChild(validateButton);
   
@@ -419,47 +419,63 @@ Object.keys(hiraganaData).forEach(key => {
   // -------------------------------------------------------------------------------------------
   // 8) VALIDACIÓN DEL DIBUJO (comparar strokeCount y posición aproximada)
   // -------------------------------------------------------------------------------------------
-  function validateDrawing(svgPathData, requiredStrokes, userStrokeCount) {
+  function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale) {
     // 1. Validar si hay trazos
     if (strokes.length === 0) {
-      alert("Por favor, realiza algunos trazos antes de validar.");
-      return;
+        alert("Por favor, realiza algunos trazos antes de validar.");
+        return;
     }
-  
+
     // 2. Comparar cantidad de trazos con los requeridos
     if (userStrokeCount !== requiredStrokes) {
-      alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
-      return;
+        alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
+        return;
     }
-  
-    // 3. Validación muy simple de posición (opcional, se puede mejorar mucho)
+
+    // 3. Validar alineación con el SVG
+    const ctx = canvas.getContext("2d");
     const path = new Path2D(svgPathData);
-    const tolerance = 20;
+    const tolerance = 20; // Tolerancia en píxeles
     let isAligned = true;
-  
-    // Recorremos todos los puntos dibujados
-    strokes.forEach(stroke => {
-      stroke.forEach(point => {
-        let pointIsValid = false;
-        // Ejemplo burdo: medimos distancia al centro
-        const distance = Math.hypot(
-          point.x - (canvas.width / 2),
-          point.y - (canvas.height / 2)
-        );
-        // Si está dentro de cierto rango, lo consideramos válido
-        if (distance < (canvas.width / 2 + tolerance)) {
-          pointIsValid = true;
+
+    // Crear un Path2D transformado para aplicar las mismas transformaciones del SVG
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+
+    // Recorrer todos los trazos del usuario
+    for (const stroke of strokes) {
+        for (const point of stroke) {
+            // Verificar si el punto está cerca del path SVG transformado
+            // Usamos isPointInStroke, pero necesitamos un rango de tolerancia
+            let pointIsValid = false;
+
+            // Escalar y trasladar el punto para que coincida con las coordenadas del SVG transformado
+            const transformedX = (point.x - offsetX) / scale;
+            const transformedY = (point.y - offsetY) / scale;
+
+            // Usar isPointInPath para verificar si el punto está dentro del path
+            // O simular una tolerancia expandiendo el área de validación
+            const pathWithTolerance = new Path2D(svgPathData);
+            ctx.lineWidth = tolerance * 2; // Expandir el área de tolerancia
+            if (ctx.isPointInStroke(pathWithTolerance, transformedX, transformedY)) {
+                pointIsValid = true;
+            }
+
+            if (!pointIsValid) {
+                isAligned = false;
+                break;
+            }
         }
-        if (!pointIsValid) {
-          isAligned = false;
-        }
-      });
-    });
-  
-    // 4. Mostramos resultado
-    if (!isAligned) {
-      alert("Dibujo incorrecto. Intenta alinear mejor los trazos.");
-    } else {
-      alert("¡Dibujo válido! Cantidad de trazos y posición aceptable.");
+        if (!isAligned) break;
     }
-  }
+
+    ctx.restore();
+
+    // 4. Mostrar resultado
+    if (isAligned) {
+        alert("¡Dibujo válido! Los trazos están alineados correctamente.");
+    } else {
+        alert("Dibujo incorrecto. Intenta alinear mejor los trazos con el fondo.");
+    }
+}
