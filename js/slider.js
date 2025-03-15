@@ -29,34 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         src: slide.src,
         alt: slide.alt
     }));
-    console.log("Gallery Items:", galleryItems); // Depuración para verificar el orden
-
-    // Función para redimensionar imágenes usando canvas
-    function resizeImage(imgSrc, callback) {
-        const img = new Image();
-        img.crossOrigin = "Anonymous"; // Necesario si las imágenes están en otro dominio
-        img.src = imgSrc;
-
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 600;
-            canvas.height = 400;
-
-            // Redibujar la imagen en el canvas con las nuevas dimensiones
-            ctx.drawImage(img, 0, 0, 600, 400);
-
-            // Convertir el canvas a una URL de datos (data URL)
-            const resizedImage = canvas.toDataURL('image/jpeg', 0.8); // 0.8 es la calidad (0 a 1)
-            console.log(`Imagen redimensionada generada para: ${imgSrc}`); // Depuración
-            callback(resizedImage);
-        };
-
-        img.onerror = () => {
-            console.error(`Error al cargar la imagen original: ${imgSrc}`);
-            callback(imgSrc); // Usar la imagen original si falla
-        };
-    }
+    console.log("Gallery Items:", galleryItems); // Depuración para verificar las imágenes
 
     // Configuración genérica para un slider
     function setupSlider(config) {
@@ -68,12 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             prevBtn,
             nextBtn,
             titleContainer,
-            intervalTime = 5000
+            intervalTime = 5000,
+            sliderName = "Slider" // Para identificar el slider en los logs
         } = config;
 
         let currentIndex = 0;
         let interval;
-        let loadedItems = 0;
 
         // Limpiar slides y dots existentes para evitar duplicaciones
         sliderContainer.innerHTML = '';
@@ -108,39 +81,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 slide.appendChild(iframe);
                 slide.appendChild(fallbackLink);
-
-                sliderContainer.appendChild(slide);
-                loadedItems++;
-                if (loadedItems === items.length) {
-                    initializeSlider();
-                }
             } else { // Para imágenes
-                resizeImage(item.src, (resizedSrc) => {
-                    const img = document.createElement("img");
-                    img.src = resizedSrc;
-                    img.alt = item.alt;
-                    img.className = slideClass;
-                    if (index === 0) img.classList.add("active");
-                    img.onload = () => {
-                        console.log(`Imagen ${index} cargada: ${resizedSrc}`); // Depuración
-                        slide.appendChild(img);
-                        sliderContainer.appendChild(slide);
-                        loadedItems++;
-                        if (loadedItems === items.length) {
-                            initializeSlider();
-                        }
-                    };
-                    img.onerror = () => {
-                        console.error(`Error al cargar la imagen redimensionada ${index}: ${resizedSrc}`);
-                        slide.appendChild(img); // Usar la imagen original si falla
-                        sliderContainer.appendChild(slide);
-                        loadedItems++;
-                        if (loadedItems === items.length) {
-                            initializeSlider();
-                        }
-                    };
-                });
+                const img = document.createElement("img");
+                img.src = item.src;
+                img.alt = item.alt;
+                img.className = slideClass;
+                if (index === 0) img.classList.add("active");
+                img.onerror = () => {
+                    console.error(`Error al cargar la imagen: ${item.src}`);
+                };
+                slide.appendChild(img);
             }
+
+            sliderContainer.appendChild(slide);
 
             const dot = document.createElement("div");
             dot.className = "slider-dot";
@@ -149,14 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
             dotContainer.appendChild(dot);
         });
 
-        function initializeSlider() {
-            // Mostrar el título inicial (si aplica)
-            if (titleContainer && items[0].title) {
-                titleContainer.textContent = items[0].title;
-            }
-
-            startSlider();
-            console.log("Slider inicializado con", items.length, "elementos");
+        // Mostrar el título inicial (si aplica)
+        if (titleContainer && items[0].title) {
+            titleContainer.textContent = items[0].title;
         }
 
         function goToSlide(index) {
@@ -184,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             currentIndex = index;
-            console.log("Cambiado a slide", index);
+            console.log(`${sliderName} - Cambiado a slide`, index);
         }
 
         function startSlider() {
@@ -192,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             interval = setInterval(() => {
                 goToSlide(currentIndex + 1);
             }, intervalTime);
-            console.log("Slider iniciado con intervalo de", intervalTime, "ms");
+            console.log(`${sliderName} - Slider iniciado con intervalo de`, intervalTime, "ms");
         }
 
         function pauseSlider() {
@@ -217,6 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 pauseSlider();
             }
         });
+
+        console.log(`${sliderName} - Slider inicializado con`, items.length, "elementos");
+        startSlider();
     }
 
     // Configuración del slider de videos
@@ -226,9 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
         slideClass: "video-slide",
         dotContainer: document.querySelector(".video .slider-dots"),
         prevBtn: document.getElementById("prev-slide"),
-        nextBtn: document.getElementById("next-next-slide"),
+        nextBtn: document.getElementById("next-slide"),
         titleContainer: document.getElementById("video-title"),
-        intervalTime: 5000
+        intervalTime: 5000,
+        sliderName: "Video Slider"
     });
 
     // Configuración del slider de imágenes
@@ -239,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dotContainer: document.querySelector(".gallery-slider + .slider-controls .slider-dots"),
         prevBtn: document.querySelector(".gallery-slider + .slider-controls .prev-slide"),
         nextBtn: document.querySelector(".gallery-slider + .slider-controls .next-slide"),
-        intervalTime: 5000
+        intervalTime: 5000,
+        sliderName: "Image Slider"
     });
 });
