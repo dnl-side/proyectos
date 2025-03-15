@@ -80,15 +80,15 @@ nav ul li a:hover {
 
 .beneficios ul li, .como-estudiar ul li {
     display: flex;
-    align-items: flex-start; /* Alinear al inicio para mejor control */
+    align-items: center; /* Centrar verticalmente */
     background: #f9f9f9;
     margin: 10px 0;
-    padding: 15px;
+    padding: 10px 15px; /* Reducir padding para un diseño más compacto */
     border-radius: 8px;
     transition: background 0.3s;
     font-size: 1.1em;
     color: #333;
-    position: relative; /* Para manejar el ícono */
+    max-width: 100%; /* Limitar el ancho máximo */
 }
 
 .beneficios ul li:hover, .como-estudiar ul li:hover {
@@ -98,10 +98,17 @@ nav ul li a:hover {
 /* Estilo para los emojis como íconos */
 .beneficios ul li::before, .como-estudiar ul li::before {
     content: attr(data-icon); /* Usar el atributo data-icon para los emojis */
-    font-size: 1.5em;
-    margin-right: 15px;
-    line-height: 1; /* Asegurar que el emoji no tenga espaciado extra */
-    display: inline-block; /* Asegurar que el ícono sea tratado como bloque */
+    font-size: 1.3em; /* Reducir tamaño del ícono para mejor proporción */
+    margin-right: 12px; /* Reducir espaciado entre ícono y texto */
+    line-height: 1;
+    display: inline-block;
+}
+
+/* Ajustar el texto para que no se estire demasiado */
+.beneficios ul li span, .como-estudiar ul li span {
+    flex: 1; /* Permitir que el texto ocupe el espacio restante */
+    text-align: left;
+    word-wrap: break-word; /* Permitir que el texto se divida en varias líneas si es necesario */
 }
 
 /* Ajustar responsividad */
@@ -117,12 +124,12 @@ nav ul li a:hover {
 
     .beneficios ul li, .como-estudiar ul li {
         font-size: 1em;
-        padding: 10px;
+        padding: 8px 12px;
     }
 
     .beneficios ul li::before, .como-estudiar ul li::before {
         margin-right: 10px;
-        font-size: 1.3em;
+        font-size: 1.2em;
     }
 }
 
