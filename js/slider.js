@@ -1,16 +1,24 @@
-// Lista de videos
+// Lista de videos (incluimos el video inicial y los 3 adicionales)
 const videos = [
     {
-        src: "https://www.youtube.com/embed/diIQBFaBNHU",
-        title: "Canciones infantiles"
+        src: "https://www.youtube.com/embed/zaLrt9orTeU",
+        title: "Video de prueba para aprender japonés",
+        youtubeLink: "https://www.youtube.com/watch?v=zaLrt9orTeU"
+    },
+    {
+        src: "https://www.youtube.com/embed/Qd9P2ukc-IU",
+        title: "Canciones infantiles",
+        youtubeLink: "https://www.youtube.com/watch?v=Qd9P2ukc-IU"
     },
     {
         src: "https://www.youtube.com/embed/iOUC62Ouaow",
-        title: "Canciones infantiles"
+        title: "Canciones infantiles",
+        youtubeLink: "https://www.youtube.com/watch?v=iOUC62Ouaow"
     },
     {
-        src: "https://www.youtube.com/embed/TGFHlujys5o",
-        title: "Canciones infantiles"
+        src: "https://www.youtube.com/embed/sba32xXeusU",
+        title: "Canciones infantiles",
+        youtubeLink: "https://www.youtube.com/watch?v=sba32xXeusU"
     }
 ];
 
@@ -30,15 +38,32 @@ videos.forEach((video, index) => {
     const slide = document.createElement("div");
     slide.className = "video-slide";
     if (index === 0) slide.classList.add("active");
-    slide.innerHTML = `
-        <iframe width="560" height="315" 
-            src="${video.src}" 
-            title="${video.title}" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
-    `;
+
+    // Crear el iframe
+    const iframe = document.createElement("iframe");
+    iframe.width = "560";
+    iframe.height = "315";
+    iframe.src = video.src;
+    iframe.title = video.title;
+    iframe.frameBorder = "0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+
+    // Añadir un enlace alternativo en caso de que el iframe falle
+    const fallbackLink = document.createElement("a");
+    fallbackLink.href = video.youtubeLink;
+    fallbackLink.className = "video-fallback";
+    fallbackLink.textContent = `Ver "${video.title}" en YouTube`;
+    fallbackLink.style.display = "none"; // Ocultar por defecto
+
+    // Añadir un listener para detectar errores de carga del iframe
+    iframe.onerror = () => {
+        iframe.style.display = "none";
+        fallbackLink.style.display = "block";
+    };
+
+    slide.appendChild(iframe);
+    slide.appendChild(fallbackLink);
     slider.appendChild(slide);
 
     // Crear dot
