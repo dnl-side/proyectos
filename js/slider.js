@@ -119,14 +119,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.alt = item.alt;
                     img.className = slideClass;
                     if (index === 0) img.classList.add("active");
-                    slide.appendChild(img);
-
-                    sliderContainer.appendChild(slide);
-
-                    loadedItems++;
-                    if (loadedItems === items.length) {
-                        initializeSlider();
-                    }
+                    img.onload = () => {
+                        // Asegurar que la imagen esté lista antes de añadirla
+                        slide.appendChild(img);
+                        sliderContainer.appendChild(slide);
+                        loadedItems++;
+                        if (loadedItems === items.length) {
+                            initializeSlider();
+                        }
+                    };
+                    img.onerror = () => {
+                        console.error(`Error al cargar la imagen redimensionada: ${resizedSrc}`);
+                        slide.appendChild(img); // Usar la imagen original si falla
+                        sliderContainer.appendChild(slide);
+                        loadedItems++;
+                        if (loadedItems === items.length) {
+                            initializeSlider();
+                        }
+                    };
                 });
             }
 
@@ -144,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             startSlider();
+            console.log("Slider inicializado con", items.length, "elementos");
         }
 
         function goToSlide(index) {
@@ -166,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             currentIndex = index;
+            console.log("Cambiado a slide", index);
         }
 
         function startSlider() {
@@ -173,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             interval = setInterval(() => {
                 goToSlide(currentIndex + 1);
             }, intervalTime);
+            console.log("Slider iniciado con intervalo de", intervalTime, "ms");
         }
 
         function pauseSlider() {
@@ -192,6 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dotContainer.addEventListener("click", (e) => {
             if (e.target.classList.contains("slider-dot")) {
+                const dotIndex = Array.from(dotContainer.children).indexOf(e.target);
+                goToSlide(dotIndex);
                 pauseSlider();
             }
         });
