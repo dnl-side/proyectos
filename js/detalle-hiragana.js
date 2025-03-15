@@ -435,7 +435,7 @@ Object.keys(hiraganaData).forEach(key => {
     // 3. Validar alineación con el SVG
     const ctx = canvas.getContext("2d");
     const path = new Path2D(svgPathData);
-    const tolerance = 20; // Tolerancia en píxeles
+    const tolerance = 40; // Tolerancia en píxeles
     let isAligned = true;
 
     // Crear un Path2D transformado para aplicar las mismas transformaciones del SVG
