@@ -190,53 +190,40 @@ const hiraganaStrokeCount = {
     "ゃ": 3, "ゅ": 3, "ょ": 2
   };
   
-
-// -------------------------------------------------------------------------------------------
-// 3) ASIGNAMOS strokeCount A CADA ENTRADA DE hiraganaData, BASADO EN SU "char"
-// -------------------------------------------------------------------------------------------
+// 3) ASIGNAMOS strokeCount A CADA ENTRADA DE hiraganaData
 Object.keys(hiraganaData).forEach(key => {
-    const hiraganaChar = hiraganaData[key].char; // p.ej. "あ"
+    const hiraganaChar = hiraganaData[key].char;
     if (hiraganaStrokeCount[hiraganaChar] !== undefined) {
-      // Si existe en el mapa, lo asignamos
-      hiraganaData[key].strokeCount = hiraganaStrokeCount[hiraganaChar];
+        hiraganaData[key].strokeCount = hiraganaStrokeCount[hiraganaChar];
     } else {
-      // Si no está en el mapa, lo dejamos en 0 o lo que prefieras
-      hiraganaData[key].strokeCount = 0;
+        hiraganaData[key].strokeCount = 0;
     }
-  });
-  
-  // -------------------------------------------------------------------------------------------
-  // 4) OBTENER PARÁMETRO DE LA URL PARA SABER QUÉ HIRAGANA MOSTRAR
-  // -------------------------------------------------------------------------------------------
-  const params = new URLSearchParams(window.location.search);
-  const hiraganaKey = params.get("h");
-  
-  // -------------------------------------------------------------------------------------------
-  // 5) OBTENEMOS LOS ELEMENTOS DEL DOM DONDE MOSTRAREMOS LOS DATOS
-  // -------------------------------------------------------------------------------------------
-  const title = document.getElementById("hiragana-title");
-  const charElement = document.getElementById("hiragana-char");
-  const pronElement = document.getElementById("hiragana-pron");
-  const ejemploElement = document.getElementById("hiragana-ejemplo");
-  
-  // Creamos el canvas (para dibujar sobre él) y lo agregamos al DOM
-  const canvas = document.createElement("canvas");
-  canvas.id = "drawing-canvas";
-  canvas.width = 400;
-  canvas.height = 400;
-  document.querySelector(".detalle").appendChild(canvas);
-  
-  // -------------------------------------------------------------------------------------------
-  // VARIABLES PARA EL DIBUJO INTERACTIVO
-  // -------------------------------------------------------------------------------------------
-  let isDrawing = false;       // Indica si el usuario está dibujando
-  const strokes = [];          // Almacena todos los trazos (cada uno es un array de puntos)
-  let currentStroke = [];      // Trazo actual antes de finalizarlo
-  
-  // -------------------------------------------------------------------------------------------
-  // 6) COMPROBAR SI EXISTE EL HIRAGANA EN hiraganaData y CARGAR SUS DATOS
-  // -------------------------------------------------------------------------------------------
-  if (hiraganaKey && hiraganaData[hiraganaKey]) {
+});
+
+// 4) OBTENER PARÁMETRO DE LA URL
+const params = new URLSearchParams(window.location.search);
+const hiraganaKey = params.get("h");
+
+// 5) OBTENEMOS LOS ELEMENTOS DEL DOM
+const title = document.getElementById("hiragana-title");
+const charElement = document.getElementById("hiragana-char");
+const pronElement = document.getElementById("hiragana-pron");
+const ejemploElement = document.getElementById("hiragana-ejemplo");
+
+// Creamos el canvas
+const canvas = document.createElement("canvas");
+canvas.id = "drawing-canvas";
+canvas.width = 400;
+canvas.height = 400;
+document.querySelector(".detalle").appendChild(canvas);
+
+// VARIABLES PARA EL DIBUJO
+let isDrawing = false;
+const strokes = [];
+let currentStroke = [];
+
+// 6) COMPROBAR SI EXISTE EL HIRAGANA
+if (hiraganaKey && hiraganaData[hiraganaKey]) {
     const hiragana = hiraganaData[hiraganaKey];
     title.textContent = `Hiragana: ${hiragana.pron}`;
     charElement.textContent = hiragana.char;
@@ -255,7 +242,6 @@ Object.keys(hiraganaData).forEach(key => {
         .then(svgText => {
             console.log("SVG cargado correctamente:", svgText.substring(0, 100));
 
-            // Extraer el atributo d y el viewBox
             const parser = new DOMParser();
             const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
             const svgPath = svgDoc.querySelector("path");
@@ -269,13 +255,11 @@ Object.keys(hiraganaData).forEach(key => {
                 throw new Error("No se encontró viewBox en el SVG");
             }
 
-            // Extraer dimensiones del viewBox
             const viewBoxValues = viewBox.split(/\s+/).map(Number);
             const viewBoxWidth = viewBoxValues[2];
             const viewBoxHeight = viewBoxValues[3];
             console.log("viewBox dimensions:", viewBoxWidth, viewBoxHeight);
 
-            // Configurar el canvas y las transformaciones
             setupCanvas(pathData, requiredStrokes, viewBoxWidth, viewBoxHeight);
         })
         .catch(err => {
@@ -286,11 +270,9 @@ Object.keys(hiraganaData).forEach(key => {
     console.log("Clave no encontrada:", hiraganaKey);
     document.querySelector(".detalle").innerHTML = "<p>Hiragana no encontrado.</p>";
 }
-  
-  // -------------------------------------------------------------------------------------------
-  // 7) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS E INTERACTÚA CON EL USUARIO (DIBUJO)
-  // -------------------------------------------------------------------------------------------
-  function setupCanvas(svgPathData, requiredStrokes, viewBoxWidth, viewBoxHeight) {
+
+// 7) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS
+function setupCanvas(svgPathData, requiredStrokes, viewBoxWidth, viewBoxHeight) {
     const ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -298,16 +280,14 @@ Object.keys(hiraganaData).forEach(key => {
     let strokeWidth = localStorage.getItem("strokeWidth") || 15;
     let userStrokeCount = 0;
 
-    // Calcular el factor de escala y centrado
-    const canvasSize = { width: canvas.width, height: canvas.height }; // 400x400, como lo definiste
-    const scaleFactor = 0.5; // Igual que en Flutter
+    const canvasSize = { width: canvas.width, height: canvas.height };
+    const scaleFactor = 0.5;
     const scaleX = (canvasSize.width * scaleFactor) / viewBoxWidth;
     const scaleY = (canvasSize.height * scaleFactor) / viewBoxHeight;
-    const scale = Math.min(scaleX, scaleY); // Escala proporcional
+    const scale = Math.min(scaleX, scaleY);
 
-    // Calcular desplazamiento para centrar
     const offsetX = (canvasSize.width - viewBoxWidth * scale) / 2;
-    const verticalAdjustment = -40; // Igual que en Flutter
+    const verticalAdjustment = -40;
     const offsetY = ((canvasSize.height - viewBoxHeight * scale) / 2) + verticalAdjustment;
 
     // Dibujar la cuadrícula de fondo
@@ -385,11 +365,7 @@ Object.keys(hiraganaData).forEach(key => {
         const colors = ["blue", "red", "teal", "yellow", "purple", "green", "orange"];
         return colors[Math.floor(Math.random() * colors.length)];
     }
-  
-    // ---------------------------------------------------------------------------------------
-    // BOTONES PARA LIMPIAR, VALIDAR Y CAMBIAR GROSOR
-    // ---------------------------------------------------------------------------------------
-    // Botón "Limpiar"
+
     const clearButton = document.createElement("button");
     clearButton.textContent = "Limpiar";
     clearButton.addEventListener("click", () => {
@@ -421,16 +397,14 @@ Object.keys(hiraganaData).forEach(key => {
         userStrokeCount = 0;
     });
     document.querySelector(".detalle").appendChild(clearButton);
-  
-    // Botón "Validar"
+
     const validateButton = document.createElement("button");
     validateButton.textContent = "Validar";
     validateButton.addEventListener("click", () => {
         validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale);
     });
     document.querySelector(".detalle").appendChild(validateButton);
-  
-    // Botón "Grosor"
+
     const widthButton = document.createElement("button");
     widthButton.textContent = "Grosor";
     widthButton.addEventListener("click", () => {
@@ -442,85 +416,41 @@ Object.keys(hiraganaData).forEach(key => {
     });
     document.querySelector(".detalle").appendChild(widthButton);
 }
-  
-  // -------------------------------------------------------------------------------------------
-  // 8) VALIDACIÓN DEL DIBUJO (comparar strokeCount y posición aproximada)
-  // -------------------------------------------------------------------------------------------
-  function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale) {
-    // 1. Validar si hay trazos
+
+// 8) VALIDACIÓN DEL DIBUJO
+function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale) {
     if (strokes.length === 0) {
         alert("Por favor, realiza algunos trazos antes de validar.");
         return;
     }
 
-    // 2. Comparar cantidad de trazos con los requeridos
     if (userStrokeCount !== requiredStrokes) {
         alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
         return;
     }
 
-    // 3. Validar alineación con el SVG
-    const ctx = canvas.getContext("2d");
-    const path = new Path2D(svgPathData);
-    const tolerance = 50; // Tolerancia en píxeles (aumentada para pruebas)
+    const tolerance = 60;
     let isAligned = true;
 
-    // Crear un canvas temporal para trabajar con las transformaciones
-    const tempCanvas = document.createElement("canvas");
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    const tempCtx = tempCanvas.getContext("2d");
+    const pathProperties = new svgPathProperties.svgPathProperties(svgPathData);
+    const totalLength = pathProperties.getTotalLength();
 
-    // Aplicar las transformaciones al contexto temporal
-    tempCtx.save();
-    tempCtx.translate(offsetX, offsetY);
-    tempCtx.scale(scale, scale);
-
-    // Muestrear puntos a lo largo del Path2D
     const samplePoints = [];
-    const pathLength = 1000; // Número de puntos para muestrear (ajustable)
-    const step = 1 / pathLength;
+    const numSamples = 500;
+    const step = totalLength / numSamples;
 
-    // Usamos Path2D y un método aproximado para obtener puntos del camino
-    for (let i = 0; i <= pathLength; i++) {
-        const t = i * step;
-        // No hay una API directa para obtener puntos en un Path2D, así que usamos un canvas temporal
-        tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
-        tempCtx.beginPath();
-        tempCtx.moveTo(0, 0);
-        tempCtx.lineTo(tempCanvas.width, 0);
-        tempCtx.strokeStyle = "black";
-        tempCtx.lineWidth = 1;
-        tempCtx.stroke(path);
-
-        // Obtener datos de píxeles para aproximar la posición
-        const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-        const data = imageData.data;
-
-        // Buscar un punto en el camino (esto es una aproximación)
-        for (let x = 0; x < tempCanvas.width; x++) {
-            for (let y = 0; y < tempCanvas.height; y++) {
-                const index = (y * tempCanvas.width + x) * 4;
-                if (data[index + 3] > 0) { // Si hay un píxel dibujado
-                    samplePoints.push({ x: (x - offsetX) / scale, y: (y - offsetY) / scale });
-                    break;
-                }
-            }
-        }
+    for (let i = 0; i <= numSamples; i++) {
+        const length = i * step;
+        const point = pathProperties.getPointAtLength(length);
+        samplePoints.push({ x: point.x, y: point.y });
     }
 
-    tempCtx.restore();
-
-    // Validar cada punto del trazo del usuario
     for (const stroke of strokes) {
         for (const point of stroke) {
             let pointIsValid = false;
-
-            // Transformar el punto del usuario al sistema de coordenadas del SVG
             const transformedX = (point.x - offsetX) / scale;
             const transformedY = (point.y - offsetY) / scale;
 
-            // Calcular la distancia mínima al camino del SVG
             let minDistance = Infinity;
             for (const sample of samplePoints) {
                 const distance = Math.hypot(transformedX - sample.x, transformedY - sample.y);
@@ -540,7 +470,6 @@ Object.keys(hiraganaData).forEach(key => {
         if (!isAligned) break;
     }
 
-    // 4. Mostrar resultado
     if (isAligned) {
         alert("¡Dibujo válido! Los trazos están alineados correctamente.");
     } else {
