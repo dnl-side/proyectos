@@ -310,26 +310,36 @@ Object.keys(hiraganaData).forEach(key => {
     const verticalAdjustment = -40; // Igual que en Flutter
     const offsetY = ((canvasSize.height - viewBoxHeight * scale) / 2) + verticalAdjustment;
 
-    // Aplicar transformaciones al contexto del canvas
-    ctx.save(); // Guardar el estado del contexto
-    ctx.translate(offsetX, offsetY); // Centrar
-    ctx.scale(scale, scale); // Escalar
+    // Dibujar la cuadrícula de fondo
+    const gridSize = 20;
+    ctx.strokeStyle = "#e0e0e0";
+    ctx.lineWidth = 1;
+    for (let x = 0; x <= canvas.width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+    for (let y = 0; y <= canvas.height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
 
-    // Dibujar el path SVG como fondo
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
     const path = new Path2D(svgPathData);
-    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Rosa semitransparente
+    ctx.fillStyle = "rgba(255, 105, 180, 0.5)";
     ctx.fill(path);
-
-    // Restaurar el contexto para que los eventos de dibujo no se vean afectados por la transformación
     ctx.restore();
 
-    // Eventos de mouse
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mouseout", stopDrawing);
 
-    // Eventos táctiles
     canvas.addEventListener("touchstart", startDrawing);
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", stopDrawing);
@@ -384,12 +394,29 @@ Object.keys(hiraganaData).forEach(key => {
     clearButton.textContent = "Limpiar";
     clearButton.addEventListener("click", () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "#e0e0e0";
+        ctx.lineWidth = 1;
+        for (let x = 0; x <= canvas.width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        for (let y = 0; y <= canvas.height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+
         ctx.save();
         ctx.translate(offsetX, offsetY);
         ctx.scale(scale, scale);
         ctx.fillStyle = "rgba(255, 105, 180, 0.5)";
         ctx.fill(path);
         ctx.restore();
+
         strokes.length = 0;
         userStrokeCount = 0;
     });
@@ -435,42 +462,83 @@ Object.keys(hiraganaData).forEach(key => {
     // 3. Validar alineación con el SVG
     const ctx = canvas.getContext("2d");
     const path = new Path2D(svgPathData);
-    const tolerance = 40; // Tolerancia en píxeles
+    const tolerance = 50; // Tolerancia en píxeles (aumentada para pruebas)
     let isAligned = true;
 
-    // Crear un Path2D transformado para aplicar las mismas transformaciones del SVG
-    ctx.save();
-    ctx.translate(offsetX, offsetY);
-    ctx.scale(scale, scale);
+    // Crear un canvas temporal para trabajar con las transformaciones
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext("2d");
 
-    // Recorrer todos los trazos del usuario
+    // Aplicar las transformaciones al contexto temporal
+    tempCtx.save();
+    tempCtx.translate(offsetX, offsetY);
+    tempCtx.scale(scale, scale);
+
+    // Muestrear puntos a lo largo del Path2D
+    const samplePoints = [];
+    const pathLength = 1000; // Número de puntos para muestrear (ajustable)
+    const step = 1 / pathLength;
+
+    // Usamos Path2D y un método aproximado para obtener puntos del camino
+    for (let i = 0; i <= pathLength; i++) {
+        const t = i * step;
+        // No hay una API directa para obtener puntos en un Path2D, así que usamos un canvas temporal
+        tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+        tempCtx.beginPath();
+        tempCtx.moveTo(0, 0);
+        tempCtx.lineTo(tempCanvas.width, 0);
+        tempCtx.strokeStyle = "black";
+        tempCtx.lineWidth = 1;
+        tempCtx.stroke(path);
+
+        // Obtener datos de píxeles para aproximar la posición
+        const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+        const data = imageData.data;
+
+        // Buscar un punto en el camino (esto es una aproximación)
+        for (let x = 0; x < tempCanvas.width; x++) {
+            for (let y = 0; y < tempCanvas.height; y++) {
+                const index = (y * tempCanvas.width + x) * 4;
+                if (data[index + 3] > 0) { // Si hay un píxel dibujado
+                    samplePoints.push({ x: (x - offsetX) / scale, y: (y - offsetY) / scale });
+                    break;
+                }
+            }
+        }
+    }
+
+    tempCtx.restore();
+
+    // Validar cada punto del trazo del usuario
     for (const stroke of strokes) {
         for (const point of stroke) {
-            // Verificar si el punto está cerca del path SVG transformado
-            // Usamos isPointInStroke, pero necesitamos un rango de tolerancia
             let pointIsValid = false;
 
-            // Escalar y trasladar el punto para que coincida con las coordenadas del SVG transformado
+            // Transformar el punto del usuario al sistema de coordenadas del SVG
             const transformedX = (point.x - offsetX) / scale;
             const transformedY = (point.y - offsetY) / scale;
 
-            // Usar isPointInPath para verificar si el punto está dentro del path
-            // O simular una tolerancia expandiendo el área de validación
-            const pathWithTolerance = new Path2D(svgPathData);
-            ctx.lineWidth = tolerance * 2; // Expandir el área de tolerancia
-            if (ctx.isPointInStroke(pathWithTolerance, transformedX, transformedY)) {
+            // Calcular la distancia mínima al camino del SVG
+            let minDistance = Infinity;
+            for (const sample of samplePoints) {
+                const distance = Math.hypot(transformedX - sample.x, transformedY - sample.y);
+                minDistance = Math.min(minDistance, distance);
+            }
+
+            if (minDistance <= tolerance) {
                 pointIsValid = true;
             }
 
             if (!pointIsValid) {
+                console.log(`Punto (${transformedX}, ${transformedY}) fuera de tolerancia. Distancia mínima: ${minDistance}`);
                 isAligned = false;
                 break;
             }
         }
         if (!isAligned) break;
     }
-
-    ctx.restore();
 
     // 4. Mostrar resultado
     if (isAligned) {

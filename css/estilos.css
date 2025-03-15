@@ -197,3 +197,37 @@ nav a:hover {
     margin: 20px auto;
     background-color: #fff;
 }
+
+.detalle button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.detalle button:nth-child(1) {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.detalle button:nth-child(2) {
+    background-color: #4caf50;
+    color: white;
+}
+
+.detalle button:nth-child(3) {
+    background-color: #2196f3;
+    color: white;
+}
+
+.detalle button:hover {
+    transform: scale(1.05);
+}
+
+.detalle button:active {
+    transform: scale(0.95);
+}
