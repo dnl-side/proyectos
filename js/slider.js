@@ -30,6 +30,32 @@ document.addEventListener('DOMContentLoaded', () => {
         alt: slide.alt
     }));
 
+    // Función para redimensionar imágenes usando canvas
+    function resizeImage(imgSrc, callback) {
+        const img = new Image();
+        img.crossOrigin = "Anonymous"; // Necesario si las imágenes están en otro dominio
+        img.src = imgSrc;
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 600;
+            canvas.height = 400;
+
+            // Redibujar la imagen en el canvas con las nuevas dimensiones
+            ctx.drawImage(img, 0, 0, 600, 400);
+
+            // Convertir el canvas a una URL de datos (data URL)
+            const resizedImage = canvas.toDataURL('image/jpeg', 0.8); // 0.8 es la calidad (0 a 1)
+            callback(resizedImage);
+        };
+
+        img.onerror = () => {
+            console.error(`Error al cargar la imagen: ${imgSrc}`);
+            callback(imgSrc); // Usar la imagen original si falla
+        };
+    }
+
     // Configuración genérica para un slider
     function setupSlider(config) {
         const {
@@ -45,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let currentIndex = 0;
         let interval;
+        let loadedItems = 0;
 
         // Limpiar slides y dots existentes para evitar duplicaciones
         sliderContainer.innerHTML = '';
@@ -79,18 +106,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 slide.appendChild(iframe);
                 slide.appendChild(fallbackLink);
-            } else { // Para imágenes
-                const img = document.createElement("img");
-                img.src = item.src;
-                img.alt = item.alt;
-                img.className = slideClass;
-                img.width = 600; // Establecer dimensiones
-                img.height = 400;
-                if (index === 0) img.classList.add("active");
-                slide.appendChild(img);
-            }
 
-            sliderContainer.appendChild(slide);
+                sliderContainer.appendChild(slide);
+                loadedItems++;
+                if (loadedItems === items.length) {
+                    initializeSlider();
+                }
+            } else { // Para imágenes
+                resizeImage(item.src, (resizedSrc) => {
+                    const img = document.createElement("img");
+                    img.src = resizedSrc;
+                    img.alt = item.alt;
+                    img.className = slideClass;
+                    if (index === 0) img.classList.add("active");
+                    slide.appendChild(img);
+
+                    sliderContainer.appendChild(slide);
+
+                    loadedItems++;
+                    if (loadedItems === items.length) {
+                        initializeSlider();
+                    }
+                });
+            }
 
             const dot = document.createElement("div");
             dot.className = "slider-dot";
@@ -99,9 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
             dotContainer.appendChild(dot);
         });
 
-        // Mostrar el título inicial (si aplica)
-        if (titleContainer && items[0].title) {
-            titleContainer.textContent = items[0].title;
+        function initializeSlider() {
+            // Mostrar el título inicial (si aplica)
+            if (titleContainer && items[0].title) {
+                titleContainer.textContent = items[0].title;
+            }
+
+            startSlider();
         }
 
         function goToSlide(index) {
@@ -153,36 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 pauseSlider();
             }
         });
-
-        // Esperar a que las imágenes se carguen antes de iniciar el slider
-        const images = sliderContainer.querySelectorAll('img');
-        let loadedImages = 0;
-
-        if (images.length > 0) {
-            images.forEach(img => {
-                img.onload = () => {
-                    loadedImages++;
-                    if (loadedImages === images.length) {
-                        startSlider();
-                    }
-                };
-                img.onerror = () => {
-                    loadedImages++;
-                    if (loadedImages === images.length) {
-                        startSlider();
-                    }
-                };
-                // Si la imagen ya está cargada (por ejemplo, desde la caché)
-                if (img.complete) {
-                    loadedImages++;
-                    if (loadedImages === images.length) {
-                        startSlider();
-                    }
-                }
-            });
-        } else {
-            startSlider(); // Si no hay imágenes (como en el slider de videos), iniciar inmediatamente
-        }
     }
 
     // Configuración del slider de videos
