@@ -238,121 +238,142 @@ Object.keys(hiraganaData).forEach(key => {
   // -------------------------------------------------------------------------------------------
   if (hiraganaKey && hiraganaData[hiraganaKey]) {
     const hiragana = hiraganaData[hiraganaKey];
-  
-    // Mostramos la info en pantalla
     title.textContent = `Hiragana: ${hiragana.pron}`;
     charElement.textContent = hiragana.char;
     pronElement.textContent = hiragana.pron;
     ejemploElement.textContent = hiragana.ejemplo;
-  
-    // Tomamos el número de trazos que se espera para este carácter
     const requiredStrokes = hiragana.strokeCount || 0;
-  
-    // Cargar el SVG de fondo y llamar a setupCanvas
+
+    console.log("Intentando cargar SVG desde:", hiragana.trazo);
     fetch(hiragana.trazo)
-      .then(response => response.text())
-      .then(svgText => {
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
-        const svgPath = svgDoc.querySelector("path").getAttribute("d");
-        
-        // Llamamos a setupCanvas con el path y la cantidad de trazos
-        setupCanvas(svgPath, requiredStrokes);
-      })
-      .catch(err => console.error("Error cargando SVG:", err));
-  
-  } else {
-    // Si la key 'h' no existe o no está en nuestro diccionario, avisamos
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status} - ${hiragana.trazo} no encontrado`);
+            }
+            return response.text();
+        })
+        .then(svgText => {
+            console.log("SVG cargado correctamente:", svgText.substring(0, 100));
+
+            // Extraer el atributo d y el viewBox
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
+            const svgPath = svgDoc.querySelector("path");
+            if (!svgPath) {
+                throw new Error("No se encontró un elemento <path> en el SVG");
+            }
+            const pathData = svgPath.getAttribute("d");
+            const svgElement = svgDoc.querySelector("svg");
+            const viewBox = svgElement.getAttribute("viewBox");
+            if (!viewBox) {
+                throw new Error("No se encontró viewBox en el SVG");
+            }
+
+            // Extraer dimensiones del viewBox
+            const viewBoxValues = viewBox.split(/\s+/).map(Number);
+            const viewBoxWidth = viewBoxValues[2];
+            const viewBoxHeight = viewBoxValues[3];
+            console.log("viewBox dimensions:", viewBoxWidth, viewBoxHeight);
+
+            // Configurar el canvas y las transformaciones
+            setupCanvas(pathData, requiredStrokes, viewBoxWidth, viewBoxHeight);
+        })
+        .catch(err => {
+            console.error("Error cargando o procesando SVG:", err);
+            document.querySelector(".detalle").innerHTML += "<p>Error: No se pudo cargar el SVG para dibujar. Verifica la ruta.</p>";
+        });
+} else {
+    console.log("Clave no encontrada:", hiraganaKey);
     document.querySelector(".detalle").innerHTML = "<p>Hiragana no encontrado.</p>";
-  }
+}
   
   // -------------------------------------------------------------------------------------------
   // 7) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS E INTERACTÚA CON EL USUARIO (DIBUJO)
   // -------------------------------------------------------------------------------------------
-  function setupCanvas(svgPathData, requiredStrokes) {
+  function setupCanvas(svgPathData, requiredStrokes, viewBoxWidth, viewBoxHeight) {
     const ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-  
+
     let strokeWidth = localStorage.getItem("strokeWidth") || 15;
-    
-    // Contador de trazos que el usuario ha hecho
     let userStrokeCount = 0;
-  
-    // Dibujamos el path SVG como fondo
+
+    // Calcular el factor de escala y centrado
+    const canvasSize = { width: canvas.width, height: canvas.height }; // 400x400, como lo definiste
+    const scaleFactor = 0.5; // Igual que en Flutter
+    const scaleX = (canvasSize.width * scaleFactor) / viewBoxWidth;
+    const scaleY = (canvasSize.height * scaleFactor) / viewBoxHeight;
+    const scale = Math.min(scaleX, scaleY); // Escala proporcional
+
+    // Calcular desplazamiento para centrar
+    const offsetX = (canvasSize.width - viewBoxWidth * scale) / 2;
+    const verticalAdjustment = -40; // Igual que en Flutter
+    const offsetY = ((canvasSize.height - viewBoxHeight * scale) / 2) + verticalAdjustment;
+
+    // Aplicar transformaciones al contexto del canvas
+    ctx.save(); // Guardar el estado del contexto
+    ctx.translate(offsetX, offsetY); // Centrar
+    ctx.scale(scale, scale); // Escalar
+
+    // Dibujar el path SVG como fondo
     const path = new Path2D(svgPathData);
-    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Ejemplo: rosa semitransparente
+    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Rosa semitransparente
     ctx.fill(path);
-  
+
+    // Restaurar el contexto para que los eventos de dibujo no se vean afectados por la transformación
+    ctx.restore();
+
     // Eventos de mouse
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mouseout", stopDrawing);
-  
+
     // Eventos táctiles
     canvas.addEventListener("touchstart", startDrawing);
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", stopDrawing);
-  
-    /**
-     * Inicia el trazo
-     */
+
     function startDrawing(e) {
-      isDrawing = true;
-      const pos = getPosition(e);
-      currentStroke = [pos];
-  
-      // Iniciamos un nuevo trazo => incrementamos el contador de trazos del usuario
-      userStrokeCount++;
-  
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-      ctx.strokeStyle = getRandomColor();
-      ctx.lineWidth = strokeWidth;
+        isDrawing = true;
+        const pos = getPosition(e);
+        currentStroke = [pos];
+        userStrokeCount++;
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        ctx.strokeStyle = getRandomColor();
+        ctx.lineWidth = strokeWidth;
     }
-  
-    /**
-     * Dibuja mientras el usuario mueve el mouse/toca la pantalla
-     */
+
     function draw(e) {
-      if (!isDrawing) return;
-      const pos = getPosition(e);
-      currentStroke.push(pos);
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
+        if (!isDrawing) return;
+        const pos = getPosition(e);
+        currentStroke.push(pos);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
     }
-  
-    /**
-     * Finaliza el trazo
-     */
+
     function stopDrawing() {
-      if (isDrawing) {
-        strokes.push(currentStroke);
-        currentStroke = [];
-        isDrawing = false;
-      }
+        if (isDrawing) {
+            strokes.push(currentStroke);
+            currentStroke = [];
+            isDrawing = false;
+        }
     }
-  
-    /**
-     * Obtiene la posición (x, y) real en el canvas
-     */
+
     function getPosition(e) {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        };
     }
-  
-    /**
-     * Color aleatorio para cada trazo
-     */
+
     function getRandomColor() {
-      const colors = ["blue", "red", "teal", "yellow", "purple", "green", "orange"];
-      return colors[Math.floor(Math.random() * colors.length)];
+        const colors = ["blue", "red", "teal", "yellow", "purple", "green", "orange"];
+        return colors[Math.floor(Math.random() * colors.length)];
     }
   
     // ---------------------------------------------------------------------------------------
@@ -362,10 +383,15 @@ Object.keys(hiraganaData).forEach(key => {
     const clearButton = document.createElement("button");
     clearButton.textContent = "Limpiar";
     clearButton.addEventListener("click", () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fill(path); // Redibujamos la guía
-      strokes.length = 0;
-      userStrokeCount = 0;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "rgba(255, 105, 180, 0.5)";
+        ctx.fill(path);
+        ctx.restore();
+        strokes.length = 0;
+        userStrokeCount = 0;
     });
     document.querySelector(".detalle").appendChild(clearButton);
   
@@ -373,7 +399,7 @@ Object.keys(hiraganaData).forEach(key => {
     const validateButton = document.createElement("button");
     validateButton.textContent = "Validar";
     validateButton.addEventListener("click", () => {
-      validateDrawing(svgPathData, requiredStrokes, userStrokeCount);
+        validateDrawing(svgPathData, requiredStrokes, userStrokeCount);
     });
     document.querySelector(".detalle").appendChild(validateButton);
   
@@ -381,14 +407,14 @@ Object.keys(hiraganaData).forEach(key => {
     const widthButton = document.createElement("button");
     widthButton.textContent = "Grosor";
     widthButton.addEventListener("click", () => {
-      const newWidth = prompt("Ingresa el grosor del trazo (1-20):", strokeWidth);
-      if (newWidth && !isNaN(newWidth) && newWidth >= 1 && newWidth <= 20) {
-        strokeWidth = newWidth;
-        localStorage.setItem("strokeWidth", strokeWidth);
-      }
+        const newWidth = prompt("Ingresa el grosor del trazo (1-20):", strokeWidth);
+        if (newWidth && !isNaN(newWidth) && newWidth >= 1 && newWidth <= 20) {
+            strokeWidth = newWidth;
+            localStorage.setItem("strokeWidth", strokeWidth);
+        }
     });
     document.querySelector(".detalle").appendChild(widthButton);
-  }
+}
   
   // -------------------------------------------------------------------------------------------
   // 8) VALIDACIÓN DEL DIBUJO (comparar strokeCount y posición aproximada)
