@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de imágenes (para el slider de imágenes)
     const gallerySlides = document.querySelectorAll('.gallery-slide');
+
+    gallerySlides.forEach(img => {
+        img.width = 600;
+        img.height = 400;
+    });
+
     const galleryItems = Array.from(gallerySlides).map(slide => ({
         src: slide.src,
         alt: slide.alt
