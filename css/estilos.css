@@ -541,12 +541,34 @@ footer {
     color: #a12323;
 }
 
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .gallery-slider {
+        height: 250px;
+    }
+
+    .slider-controls button {
+        padding: 5px 10px;
+        font-size: 0.9em;
+    }
+
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 .gallery-slider {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 400px; /* Mantener la altura */
     overflow: hidden;
     border-radius: 10px;
+    margin: 20px 0; /* Añadir margen para espaciarlo del texto y el botón */
 }
 
 .gallery-slide {
@@ -605,13 +627,8 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .modal-content {
-        padding: 15px;
-        width: 95%;
-    }
-
     .gallery-slider {
-        height: 250px;
+        height: 250px; /* Reducir altura en pantallas pequeñas */
     }
 
     .slider-controls button {

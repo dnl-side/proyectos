@@ -23,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    // Lista de imágenes (para el slider de imágenes)
+    const gallerySlides = document.querySelectorAll('.gallery-slide');
+    const galleryItems = Array.from(gallerySlides).map(slide => ({
+        src: slide.src,
+        alt: slide.alt
+    }));
+
     // Configuración genérica para un slider
     function setupSlider(config) {
         const {
@@ -39,13 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0;
         let interval;
 
+        // Limpiar slides y dots existentes para evitar duplicaciones
+        sliderContainer.innerHTML = '';
+        dotContainer.innerHTML = '';
+
         // Generar los slides y los dots dinámicamente
         items.forEach((item, index) => {
             const slide = document.createElement("div");
             slide.className = slideClass;
             if (index === 0) slide.classList.add("active");
 
-            if (item.src) { // Para videos
+            if (item.src && item.youtubeLink) { // Para videos
                 const iframe = document.createElement("iframe");
                 iframe.width = "560";
                 iframe.height = "315";
@@ -69,8 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 slide.appendChild(iframe);
                 slide.appendChild(fallbackLink);
             } else { // Para imágenes
-                const img = sliderContainer.querySelectorAll(`.${slideClass}`)[index];
-                if (img) slide.appendChild(img); // Reutilizamos las imágenes ya existentes en el HTML
+                const img = document.createElement("img");
+                img.src = item.src;
+                img.alt = item.alt;
+                img.className = slideClass;
+                if (index === 0) img.classList.add("active");
+                slide.appendChild(img);
             }
 
             sliderContainer.appendChild(slide);
@@ -152,16 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         intervalTime: 5000
     });
 
-    // Configuración del slider de imágenes (modal)
-    const modal = document.getElementById('galleryModal');
-    const galleryBtn = document.querySelector('.gallery-btn');
-    const closeBtn = document.querySelector('.close');
-    const gallerySlides = document.querySelectorAll('.gallery-slide');
-    const galleryItems = Array.from(gallerySlides).map(slide => ({
-        src: slide.src,
-        alt: slide.alt
-    }));
-
+    // Configuración del slider de imágenes
     setupSlider({
         items: galleryItems,
         sliderContainer: document.querySelector(".gallery-slider"),
@@ -170,29 +176,5 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn: document.querySelector(".gallery-slider + .slider-controls .prev-slide"),
         nextBtn: document.querySelector(".gallery-slider + .slider-controls .next-slide"),
         intervalTime: 5000
-    });
-
-    // Manejo del modal
-    galleryBtn.addEventListener('click', () => {
-        modal.style.display = 'flex';
-        setupSlider({ // Reiniciar el slider al abrir el modal
-            items: galleryItems,
-            sliderContainer: document.querySelector(".gallery-slider"),
-            slideClass: "gallery-slide",
-            dotContainer: document.querySelector(".gallery-slider + .slider-controls .slider-dots"),
-            prevBtn: document.querySelector(".gallery-slider + .slider-controls .prev-slide"),
-            nextBtn: document.querySelector(".gallery-slider + .slider-controls .next-slide"),
-            intervalTime: 5000
-        });
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
     });
 });
