@@ -188,79 +188,89 @@ const katakanaStrokeCount = {
     "ャ": 2, "ュ": 2, "ョ": 3
 };
 
-// -------------------------------------------------------------------------------------------
-// 3) ASIGNAMOS strokeCount A CADA ENTRADA DE katakanaData, BASADO EN SU "char"
-// -------------------------------------------------------------------------------------------
+// 1) ASIGNAMOS strokeCount A CADA ENTRADA DE katakanaData
 Object.keys(katakanaData).forEach(key => {
-    const katakanaChar = katakanaData[key].char; // p.ej. "ア"
+    const katakanaChar = katakanaData[key].char;
     if (katakanaStrokeCount[katakanaChar] !== undefined) {
         katakanaData[key].strokeCount = katakanaStrokeCount[katakanaChar];
     } else {
-        katakanaData[key].strokeCount = 0; // Valor por defecto si no está en el mapa
+        katakanaData[key].strokeCount = 0;
     }
 });
 
-// -------------------------------------------------------------------------------------------
-// 4) OBTENER PARÁMETRO DE LA URL PARA SABER QUÉ KATAKANA MOSTRAR
-// -------------------------------------------------------------------------------------------
+// 2) OBTENER PARÁMETRO DE LA URL
 const params = new URLSearchParams(window.location.search);
-const katakanaKey = params.get("k"); // Usamos "k" para Katakana en lugar de "h"
+const katakanaKey = params.get("k"); // Cambiamos "h" por "k" para diferenciar de hiragana
 
-// -------------------------------------------------------------------------------------------
-// 5) OBTENEMOS LOS ELEMENTOS DEL DOM DONDE MOSTRAREMOS LOS DATOS
-// -------------------------------------------------------------------------------------------
+// 3) OBTENEMOS LOS ELEMENTOS DEL DOM
 const title = document.getElementById("katakana-title");
 const charElement = document.getElementById("katakana-char");
 const pronElement = document.getElementById("katakana-pron");
 const ejemploElement = document.getElementById("katakana-ejemplo");
 
-// Creamos el canvas y lo agregamos al DOM
+// Creamos el canvas
 const canvas = document.createElement("canvas");
 canvas.id = "drawing-canvas";
 canvas.width = 400;
 canvas.height = 400;
 document.querySelector(".detalle").appendChild(canvas);
 
-// -------------------------------------------------------------------------------------------
-// VARIABLES PARA EL DIBUJO INTERACTIVO
-// -------------------------------------------------------------------------------------------
+// VARIABLES PARA EL DIBUJO
 let isDrawing = false;
 const strokes = [];
 let currentStroke = [];
 
-// -------------------------------------------------------------------------------------------
-// 6) COMPROBAR SI EXISTE EL KATAKANA EN katakanaData y CARGAR SUS DATOS
-// -------------------------------------------------------------------------------------------
+// 4) COMPROBAR SI EXISTE EL KATAKANA
 if (katakanaKey && katakanaData[katakanaKey]) {
     const katakana = katakanaData[katakanaKey];
-
-    // Mostramos la info en pantalla
     title.textContent = `Katakana: ${katakana.pron}`;
     charElement.textContent = katakana.char;
     pronElement.textContent = katakana.pron;
     ejemploElement.textContent = katakana.ejemplo;
-
-    // Tomamos el número de trazos que se espera para este carácter
     const requiredStrokes = katakana.strokeCount || 0;
 
-    // Cargar el SVG de fondo y llamar a setupCanvas
+    console.log("Intentando cargar SVG desde:", katakana.trazo);
     fetch(katakana.trazo)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status} - ${katakana.trazo} no encontrado`);
+            }
+            return response.text();
+        })
         .then(svgText => {
+            console.log("SVG cargado correctamente:", svgText.substring(0, 100));
+
             const parser = new DOMParser();
             const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
-            const svgPath = svgDoc.querySelector("path").getAttribute("d");
-            setupCanvas(svgPath, requiredStrokes);
+            const svgPath = svgDoc.querySelector("path");
+            if (!svgPath) {
+                throw new Error("No se encontró un elemento <path> en el SVG");
+            }
+            const pathData = svgPath.getAttribute("d");
+            const svgElement = svgDoc.querySelector("svg");
+            const viewBox = svgElement.getAttribute("viewBox");
+            if (!viewBox) {
+                throw new Error("No se encontró viewBox en el SVG");
+            }
+
+            const viewBoxValues = viewBox.split(/\s+/).map(Number);
+            const viewBoxWidth = viewBoxValues[2];
+            const viewBoxHeight = viewBoxValues[3];
+            console.log("viewBox dimensions:", viewBoxWidth, viewBoxHeight);
+
+            setupCanvas(pathData, requiredStrokes, viewBoxWidth, viewBoxHeight);
         })
-        .catch(err => console.error("Error cargando SVG:", err));
+        .catch(err => {
+            console.error("Error cargando o procesando SVG:", err);
+            document.querySelector(".detalle").innerHTML += "<p>Error: No se pudo cargar el SVG para dibujar. Verifica la ruta.</p>";
+        });
 } else {
+    console.log("Clave no encontrada:", katakanaKey);
     document.querySelector(".detalle").innerHTML = "<p>Katakana no encontrado.</p>";
 }
 
-// -------------------------------------------------------------------------------------------
-// 7) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS E INTERACTÚA CON EL USUARIO (DIBUJO)
-// -------------------------------------------------------------------------------------------
-function setupCanvas(svgPathData, requiredStrokes) {
+// 5) FUNCIÓN PRINCIPAL QUE CONFIGURA EL CANVAS
+function setupCanvas(svgPathData, requiredStrokes, viewBoxWidth, viewBoxHeight) {
     const ctx = canvas.getContext("2d");
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -268,18 +278,46 @@ function setupCanvas(svgPathData, requiredStrokes) {
     let strokeWidth = localStorage.getItem("strokeWidth") || 15;
     let userStrokeCount = 0;
 
-    // Dibujamos el path SVG como fondo
-    const path = new Path2D(svgPathData);
-    ctx.fillStyle = "rgba(255, 105, 180, 0.5)"; // Rosa semitransparente
-    ctx.fill(path);
+    const canvasSize = { width: canvas.width, height: canvas.height };
+    const scaleFactor = 0.5;
+    const scaleX = (canvasSize.width * scaleFactor) / viewBoxWidth;
+    const scaleY = (canvasSize.height * scaleFactor) / viewBoxHeight;
+    const scale = Math.min(scaleX, scaleY);
 
-    // Eventos de mouse
+    const offsetX = (canvasSize.width - viewBoxWidth * scale) / 2;
+    const verticalAdjustment = -40;
+    const offsetY = ((canvasSize.height - viewBoxHeight * scale) / 2) + verticalAdjustment;
+
+    // Dibujar la cuadrícula de fondo
+    const gridSize = 20;
+    ctx.strokeStyle = "#e0e0e0";
+    ctx.lineWidth = 1;
+    for (let x = 0; x <= canvas.width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+    for (let y = 0; y <= canvas.height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+
+    ctx.save();
+    ctx.translate(offsetX, offsetY);
+    ctx.scale(scale, scale);
+    const path = new Path2D(svgPathData);
+    ctx.fillStyle = "rgba(255, 105, 180, 0.5)";
+    ctx.fill(path);
+    ctx.restore();
+
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mouseout", stopDrawing);
 
-    // Eventos táctiles
     canvas.addEventListener("touchstart", startDrawing);
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", stopDrawing);
@@ -289,7 +327,6 @@ function setupCanvas(svgPathData, requiredStrokes) {
         const pos = getPosition(e);
         currentStroke = [pos];
         userStrokeCount++;
-
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
         ctx.strokeStyle = getRandomColor();
@@ -327,12 +364,33 @@ function setupCanvas(svgPathData, requiredStrokes) {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    // Botones
     const clearButton = document.createElement("button");
     clearButton.textContent = "Limpiar";
     clearButton.addEventListener("click", () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "#e0e0e0";
+        ctx.lineWidth = 1;
+        for (let x = 0; x <= canvas.width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        for (let y = 0; y <= canvas.height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "rgba(255, 105, 180, 0.5)";
         ctx.fill(path);
+        ctx.restore();
+
         strokes.length = 0;
         userStrokeCount = 0;
     });
@@ -341,7 +399,7 @@ function setupCanvas(svgPathData, requiredStrokes) {
     const validateButton = document.createElement("button");
     validateButton.textContent = "Validar";
     validateButton.addEventListener("click", () => {
-        validateDrawing(svgPathData, requiredStrokes, userStrokeCount);
+        validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale);
     });
     document.querySelector(".detalle").appendChild(validateButton);
 
@@ -357,43 +415,75 @@ function setupCanvas(svgPathData, requiredStrokes) {
     document.querySelector(".detalle").appendChild(widthButton);
 }
 
-// -------------------------------------------------------------------------------------------
-// 8) VALIDACIÓN DEL DIBUJO
-// -------------------------------------------------------------------------------------------
-function validateDrawing(svgPathData, requiredStrokes, userStrokeCount) {
+// 6) VALIDACIÓN DEL DIBUJO
+function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale) {
+    // 1. Validar si hay trazos
     if (strokes.length === 0) {
         alert("Por favor, realiza algunos trazos antes de validar.");
         return;
     }
 
+    // 2. Comparar cantidad de trazos con los requeridos
     if (userStrokeCount !== requiredStrokes) {
         alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
         return;
     }
 
-    const path = new Path2D(svgPathData);
-    const tolerance = 20;
+    // 3. Validar alineación con el SVG
+    const tolerance = 20; // Tolerancia de 20 píxeles
     let isAligned = true;
 
-    strokes.forEach(stroke => {
-        stroke.forEach(point => {
+    const pathProperties = new svgPathProperties.svgPathProperties(svgPathData);
+    const totalLength = pathProperties.getTotalLength();
+
+    const samplePoints = [];
+    const numSamples = 2000; // Densidad de puntos muestreados
+    const step = totalLength / numSamples;
+
+    for (let i = 0; i <= numSamples; i++) {
+        const length = i * step;
+        const point = pathProperties.getPointAtLength(length);
+        samplePoints.push({ x: point.x, y: point.y });
+    }
+
+    // Validar cada punto del trazo del usuario
+    for (let strokeIndex = 0; strokeIndex < strokes.length; strokeIndex++) {
+        const stroke = strokes[strokeIndex];
+        for (let pointIndex = 0; pointIndex < stroke.length; pointIndex++) {
+            const point = stroke[pointIndex];
             let pointIsValid = false;
-            const distance = Math.hypot(
-                point.x - (canvas.width / 2),
-                point.y - (canvas.height / 2)
-            );
-            if (distance < (canvas.width / 2 + tolerance)) {
-                pointIsValid = true;
+
+            // Transformar el punto del usuario al sistema de coordenadas del SVG
+            const transformedX = (point.x - offsetX) / scale;
+            const transformedY = (point.y - offsetY) / scale;
+
+            // Calcular la distancia mínima al camino del SVG
+            let minDistance = Infinity;
+            for (const sample of samplePoints) {
+                const distance = Math.hypot(transformedX - sample.x, transformedY - sample.y);
+                minDistance = Math.min(minDistance, distance);
             }
+
+            console.log(`Trazo ${strokeIndex}, Punto ${pointIndex} (${transformedX}, ${transformedY}): Distancia mínima = ${minDistance}`);
+
+            if (minDistance <= tolerance) {
+                pointIsValid = true;
+            } else {
+                console.log(`Punto (${transformedX}, ${transformedY}) fuera de tolerancia. Distancia mínima: ${minDistance}`);
+            }
+
             if (!pointIsValid) {
                 isAligned = false;
+                break; // Salir del bucle de puntos si un punto falla
             }
-        });
-    });
+        }
+        if (!isAligned) break; // Salir del bucle de trazos si un trazo falla
+    }
 
-    if (!isAligned) {
-        alert("Dibujo incorrecto. Intenta alinear mejor los trazos.");
+    // 4. Mostrar resultado
+    if (isAligned) {
+        alert("¡Dibujo válido! Los trazos están alineados correctamente.");
     } else {
-        alert("¡Dibujo válido! Cantidad de trazos y posición aceptable.");
+        alert("Dibujo incorrecto. Intenta alinear mejor los trazos con el fondo.");
     }
 }

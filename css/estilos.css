@@ -10,12 +10,18 @@ body {
     background-color: #f4f4f4;
     color: #333;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Header */
 header {
     background-color: #d32f2f;
     color: white;
     padding: 20px;
+    width: 100%;
 }
 
 nav ul {
@@ -34,8 +40,18 @@ nav ul li a {
     font-weight: bold;
 }
 
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main */
 main {
     padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .intro {
@@ -67,120 +83,7 @@ main {
     border-radius: 10px;
 }
 
-footer {
-    background: #333;
-    color: white;
-    padding: 10px;
-    margin-top: 20px;
-}
-
-/* Estilos para las tablas de Hiragana y Katakana */
-.tabla-hiragana, .tabla-katakana {
-    margin: 30px auto;
-    max-width: 800px; /* Ajusta este valor según prefieras */
-}
-
-.tabla-hiragana h2, .tabla-katakana h2 {
-    color: #d32f2f;
-    margin-bottom: 15px;
-    font-size: 1.5em;
-}
-
-.tabla-hiragana table, .tabla-katakana table {
-    width: 100%;
-    max-width: 800px; /* Limita el ancho máximo */
-    margin: 0 auto 30px auto; /* Centra la tabla */
-    background: white;
-    border-collapse: collapse; /* Elimina espacios entre bordes */
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Para que los bordes redondeados funcionen bien */
-}
-
-.tabla-hiragana th, .tabla-katakana th,
-.tabla-hiragana td, .tabla-katakana td {
-    padding: 12px 15px; /* Espaciado interno */
-    text-align: center; /* Centra el contenido */
-    border: 1px solid #ddd; /* Bordes sutiles */
-}
-
-.tabla-hiragana th, .tabla-katakana th {
-    background-color: #d32f2f;
-    color: white;
-    font-weight: bold;
-}
-
-.tabla-hiragana td, .tabla-katakana td {
-    color: #333;
-}
-
-.tabla-hiragana tr:nth-child(even), .tabla-katakana tr:nth-child(even) {
-    background-color: #f9f9f9; /* Fondo alternado para mejor legibilidad */
-}
-
-.tabla-hiragana tr:hover, .tabla-katakana tr:hover {
-    background-color: #ffebee; /* Efecto hover con un tono rojizo claro */
-    transition: background-color 0.3s;
-}
-
-.tabla-hiragana a, .tabla-katakana a {
-    color: #d32f2f;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.tabla-hiragana a:hover, .tabla-katakana a:hover {
-    color: #a12323;
-    text-decoration: underline;
-}
-
-/* Responsividad para pantallas pequeñas */
-@media (max-width: 600px) {
-    .tabla-hiragana table, .tabla-katakana table {
-        font-size: 0.9em; /* Reduce el tamaño de fuente */
-    }
-
-    .tabla-hiragana th, .tabla-katakana th,
-    .tabla-hiragana td, .tabla-katakana td {
-        padding: 8px 10px; /* Reduce el espaciado */
-    }
-}
-
-.hiragana-big, .katakana-big {
-    font-size: 2.5em; /* Ajusta el tamaño según prefieras */
-    font-family: 'Arial', sans-serif; /* Asegúrate de usar una fuente que soporte japonés */
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f5f5f5;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-nav {
-    margin-bottom: 20px;
-}
-
-nav a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #ff0000;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
+/* Detalle de Kanji */
 .detalle {
     text-align: center;
     background-color: #fff;
@@ -189,6 +92,21 @@ nav a:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     width: 100%;
+    margin: 20px auto;
+}
+
+.detalle h2 {
+    color: #d32f2f;
+    margin-bottom: 15px;
+}
+
+.detalle p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.detalle p strong {
+    color: #d32f2f;
 }
 
 #drawing-canvas {
@@ -196,6 +114,7 @@ nav a:hover {
     display: block;
     margin: 20px auto;
     background-color: #fff;
+    border-radius: 5px;
 }
 
 .detalle button {
@@ -209,17 +128,17 @@ nav a:hover {
     transition: background-color 0.3s, transform 0.1s;
 }
 
-.detalle button:nth-child(1) {
+.detalle button:nth-child(1) { /* Limpiar */
     background-color: #ff4d4d;
     color: white;
 }
 
-.detalle button:nth-child(2) {
+.detalle button:nth-child(2) { /* Validar */
     background-color: #4caf50;
     color: white;
 }
 
-.detalle button:nth-child(3) {
+.detalle button:nth-child(3) { /* Grosor */
     background-color: #2196f3;
     color: white;
 }
@@ -230,4 +149,106 @@ nav a:hover {
 
 .detalle button:active {
     transform: scale(0.95);
+}
+
+/* Estilos para tablas de Hiragana, Katakana y Kanji */
+.tabla-hiragana, .tabla-katakana, .tabla-kanji {
+    margin: 30px auto;
+    max-width: 800px;
+}
+
+.tabla-hiragana h2, .tabla-katakana h2, .tabla-kanji h2 {
+    color: #d32f2f;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.tabla-hiragana table, .tabla-katakana table, .tabla-kanji table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.tabla-hiragana th, .tabla-katakana th, .tabla-kanji th,
+.tabla-hiragana td, .tabla-katakana td, .tabla-kanji td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.tabla-hiragana th, .tabla-katakana th, .tabla-kanji th {
+    background-color: #d32f2f;
+    color: white;
+    font-weight: bold;
+}
+
+.tabla-hiragana td, .tabla-katakana td, .tabla-kanji td {
+    color: #333;
+}
+
+.tabla-hiragana tr:nth-child(even), .tabla-katakana tr:nth-child(even), .tabla-kanji tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabla-hiragana tr:hover, .tabla-katakana tr:hover, .tabla-kanji tr:hover {
+    background-color: #ffebee;
+    transition: background-color 0.3s;
+}
+
+.tabla-hiragana a, .tabla-katakana a, .tabla-kanji a {
+    color: #d32f2f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.tabla-hiragana a:hover, .tabla-katakana a:hover, .tabla-kanji a:hover {
+    color: #a12323;
+    text-decoration: underline;
+}
+
+/* Tamaño grande para caracteres */
+.hiragana-big, .katakana-big, .kanji-big {
+    font-size: 2.5em;
+    font-family: 'Arial', sans-serif; /* Usa una fuente que soporte japonés */
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    .tabla-hiragana table, .tabla-katakana table, .tabla-kanji table {
+        font-size: 0.9em;
+    }
+
+    .tabla-hiragana th, .tabla-katakana th, .tabla-kanji th,
+    .tabla-hiragana td, .tabla-katakana td, .tabla-kanji td {
+        padding: 8px 10px;
+    }
+
+    .detalle {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    #drawing-canvas {
+        width: 100%;
+        height: auto;
+    }
+
+    .detalle button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
 }

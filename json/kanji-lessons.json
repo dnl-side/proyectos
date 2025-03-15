@@ -1,0 +1,1970 @@
+[
+    {
+      "lesson": "Lección 1 - Kanji Nivel 1",
+      "characters": ["一", "右", "雨", "円", "王"],
+      "vocabulary": [
+        {
+          "kanji": "一",
+          "on": ["イチ", "イツ"],
+          "kun": ["ひと","ひと(つ)"],
+          "meaning": "Uno",
+          "example": "飴を一つください。"
+        },
+        {
+          "kanji": "右",
+          "on": ["ウ","ユウ"],
+          "kun": ["みぎ"],
+          "meaning": "Derecha",
+          "example": "右に曲がります。"
+        },
+        {
+          "kanji": "雨",
+          "on": ["ウ"],
+          "kun": ["あめ","あま"],
+          "meaning": "Lluvia",
+          "example": "雨が降っています。"
+        },
+        {
+          "kanji": "円",
+          "on": ["エン"],
+          "kun": [],
+          "meaning": "Yen / Círculo",
+          "example": "一円玉。"
+        },
+        {
+          "kanji": "王",
+          "on": ["オウ"],
+          "kun": [],
+          "meaning": "Rey",
+          "example": "王様。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 2 - Kanji Nivel 1",
+      "characters": ["音", "下", "火", "花", "貝"],
+      "vocabulary": [
+        {
+          "kanji": "音",
+          "on": ["イン","オン"],
+          "kun": ["おと","ね"],
+          "meaning": "Sonido",
+          "example": "音楽を聞く。"
+        },
+        {
+          "kanji": "下",
+          "on": ["カ","ゲ"],
+          "kun": ["した", "しも","さ.げる","さ.がる","くだ.る","くだ.す", "くだ.さる","お.ろす","お.りる"],
+          "meaning": "Abajo / Debajo / Bajar",
+          "example": "机の下に猫がいる。"
+        },
+        {
+          "kanji": "火",
+          "on": ["カ"],
+          "kun": ["ひ", "ほ"],
+          "meaning": "Fuego",
+          "example": "火を消してください。"
+        },
+        {
+          "kanji": "花",
+          "on": ["カ"],
+          "kun": ["はな"],
+          "meaning": "Flor",
+          "example": "桜の花が咲いている。"
+        },
+        {
+          "kanji": "貝",
+          "on": ["バイ"],
+          "kun": ["かい"],
+          "meaning": "Concha",
+          "example": "海で貝を見つけた。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 3 - Kanji Nivel 1",
+      "characters": ["学", "気", "九", "休", "玉"],
+      "vocabulary": [
+        {
+          "kanji": "学",
+          "on": ["ガク"],
+          "kun": ["まな.ぶ"],
+          "meaning": "Estudio, Aprender",
+          "example": "学校で学びます。"
+        },
+        {
+          "kanji": "気",
+          "on": ["キ", "ケ"],
+          "kun": ["いき"],
+          "meaning": "Energía, Ánimo",
+          "example": "元気です。"
+        },
+        {
+          "kanji": "九",
+          "on": ["キュウ", "ク"],
+          "kun": ["ここの", "ここのつ"],
+          "meaning": "Nueve",
+          "example": "九つのりんご。"
+        },
+        {
+          "kanji": "休",
+          "on": ["キュウ"],
+          "kun": ["やす.む"],
+          "meaning": "Descansar",
+          "example": "休みましょう。"
+        },
+        {
+          "kanji": "玉",
+          "on": ["ギョク"],
+          "kun": ["たま"],
+          "meaning": "Bola, Joya",
+          "example": "玉ねぎを切る。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 4 - Kanji Nivel 1",
+      "characters": ["金", "空", "月", "犬", "見"],
+      "vocabulary": [
+        {
+          "kanji": "金",
+          "on": ["キン", "コン"],
+          "kun": ["かね"],
+          "meaning": "Oro, Dinero",
+          "example": "金を大切にする。"
+        },
+        {
+          "kanji": "空",
+          "on": ["クウ"],
+          "kun": ["そら", "あ.く", "あ.ける", "から"],
+          "meaning": "Cielo",
+          "example": "青い空。"
+        },
+        {
+          "kanji": "月",
+          "on": ["ゲツ", "ガツ"],
+          "kun": ["つき"],
+          "meaning": "Luna, Mes",
+          "example": "月が綺麗です。"
+        },
+        {
+          "kanji": "犬",
+          "on": ["ケン"],
+          "kun": ["いぬ"],
+          "meaning": "Perro",
+          "example": "犬と散歩する。"
+        },
+        {
+          "kanji": "見",
+          "on": ["ケン"],
+          "kun": ["み.る", "み.える", "み.せる"],
+          "meaning": "Ver",
+          "example": "景色が見える。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 5 - Kanji Nivel 1",
+      "characters": ["五", "口", "校", "左", "三"],
+      "vocabulary": [
+        {
+          "kanji": "五",
+          "on": ["ゴ"],
+          "kun": ["いつつ"],
+          "meaning": "Cinco",
+          "example": "五つの本。"
+        },
+        {
+          "kanji": "口",
+          "on": ["コウ"],
+          "kun": ["くち"],
+          "meaning": "Boca",
+          "example": "大きな口。"
+        },
+        {
+          "kanji": "校",
+          "on": ["コウ"],
+          "kun": [],
+          "meaning": "Escuela",
+          "example": "学校へ行く。"
+        },
+        {
+          "kanji": "左",
+          "on": ["サ"],
+          "kun": ["ひだり"],
+          "meaning": "Izquierda",
+          "example": "左に曲がる。"
+        },
+        {
+          "kanji": "三",
+          "on": ["サン"],
+          "kun": ["み", "み.つ"],
+          "meaning": "Tres",
+          "example": "三人の友達。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 6 - Kanji Nivel 1",
+      "characters": ["山", "子", "四", "糸", "字"],
+      "vocabulary": [
+        {
+          "kanji": "山",
+          "on": ["サン"],
+          "kun": ["やま"],
+          "meaning": "Montaña",
+          "example": "山に登る。"
+        },
+        {
+          "kanji": "子",
+          "on": ["シ"],
+          "kun": ["こ"],
+          "meaning": "Niño",
+          "example": "子供が遊ぶ。"
+        },
+        {
+          "kanji": "四",
+          "on": ["シ", "ヨン"],
+          "kun": ["よ", "よ.つ"],
+          "meaning": "Cuatro",
+          "example": "四角い形。"
+        },
+        {
+          "kanji": "糸",
+          "on": ["シ"],
+          "kun": ["いと"],
+          "meaning": "Hilo",
+          "example": "糸を紡ぐ。"
+        },
+        {
+          "kanji": "字",
+          "on": ["ジ"],
+          "kun": ["あざ"],
+          "meaning": "Letra, Carácter",
+          "example": "名前の字を学ぶ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 7 - Kanji Nivel 1",
+      "characters": ["耳", "七", "車", "手", "十"],
+      "vocabulary": [
+        {
+          "kanji": "耳",
+          "on": ["ジ"],
+          "kun": ["みみ"],
+          "meaning": "Oreja",
+          "example": "耳をすませる。"
+        },
+        {
+          "kanji": "七",
+          "on": ["シチ"],
+          "kun": ["なな", "なな.つ"],
+          "meaning": "Siete",
+          "example": "七つの星。"
+        },
+        {
+          "kanji": "車",
+          "on": ["シャ"],
+          "kun": ["くるま"],
+          "meaning": "Coche",
+          "example": "車が走る。"
+        },
+        {
+          "kanji": "手",
+          "on": ["シュ"],
+          "kun": ["て", "た"],
+          "meaning": "Mano",
+          "example": "手を洗う。"
+        },
+        {
+          "kanji": "十",
+          "on": ["ジュウ", "ジッ"],
+          "kun": ["とお"],
+          "meaning": "Diez",
+          "example": "十個のりんご。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 8 - Kanji Nivel 1",
+      "characters": ["出", "女", "小", "上", "森"],
+      "vocabulary": [
+        {
+          "kanji": "出",
+          "on": ["シュツ", "スイ"],
+          "kun": ["で.る", "だ.す"],
+          "meaning": "Salir",
+          "example": "家を出る。"
+        },
+        {
+          "kanji": "女",
+          "on": ["ジョ", "ニョ"],
+          "kun": ["おんな"],
+          "meaning": "Mujer",
+          "example": "女の人。"
+        },
+        {
+          "kanji": "小",
+          "on": ["ショウ"],
+          "kun": ["ちい.さい", "こ", "お"],
+          "meaning": "Pequeño",
+          "example": "小さい犬。"
+        },
+        {
+          "kanji": "上",
+          "on": ["ジョウ"],
+          "kun": ["うえ", "あ.げる"],
+          "meaning": "Arriba",
+          "example": "上を見上げる。"
+        },
+        {
+          "kanji": "森",
+          "on": ["シン"],
+          "kun": ["もり"],
+          "meaning": "Bosque",
+          "example": "森で散歩する。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 9 - Kanji Nivel 1",
+      "characters": ["人", "水", "正", "生", "青"],
+      "vocabulary": [
+        {
+          "kanji": "人",
+          "on": ["ジン", "ニン"],
+          "kun": ["ひと"],
+          "meaning": "Persona",
+          "example": "人が歩く。"
+        },
+        {
+          "kanji": "水",
+          "on": ["スイ"],
+          "kun": ["みず"],
+          "meaning": "Agua",
+          "example": "水を飲む。"
+        },
+        {
+          "kanji": "正",
+          "on": ["セイ", "ショウ"],
+          "kun": ["ただ.しい", "まさ"],
+          "meaning": "Correcto, Justo",
+          "example": "正しい答え。"
+        },
+        {
+          "kanji": "生",
+          "on": ["セイ", "ショウ"],
+          "kun": ["い.きる", "う.まれる"],
+          "meaning": "Vida, Nacer",
+          "example": "生きる喜び。"
+        },
+        {
+          "kanji": "青",
+          "on": ["セイ", "ショウ"],
+          "kun": ["あお", "あお.い"],
+          "meaning": "Azul, Verde",
+          "example": "青い空。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 10 - Kanji Nivel 1",
+      "characters": ["夕", "石", "赤", "千", "川"],
+      "vocabulary": [
+        {
+          "kanji": "夕",
+          "on": ["セキ"],
+          "kun": ["ゆう"],
+          "meaning": "Atardecer",
+          "example": "夕日が綺麗。"
+        },
+        {
+          "kanji": "石",
+          "on": ["セキ", "シャク"],
+          "kun": ["いし"],
+          "meaning": "Piedra",
+          "example": "石を投げる。"
+        },
+        {
+          "kanji": "赤",
+          "on": ["セキ"],
+          "kun": ["あか"],
+          "meaning": "Rojo",
+          "example": "赤い花。"
+        },
+        {
+          "kanji": "千",
+          "on": ["セン"],
+          "kun": ["ち", "ち.る"],
+          "meaning": "Mil",
+          "example": "千の星。"
+        },
+        {
+          "kanji": "川",
+          "on": ["セン"],
+          "kun": ["かわ"],
+          "meaning": "Río",
+          "example": "川で遊ぶ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 11 - Kanji Nivel 1",
+      "characters": ["先", "早", "草", "足", "村"],
+      "vocabulary": [
+        {
+          "kanji": "先",
+          "on": ["セン"],
+          "kun": ["さき"],
+          "meaning": "Antes, Adelante",
+          "example": "先に行く。"
+        },
+        {
+          "kanji": "早",
+          "on": ["ソウ"],
+          "kun": ["はや.い"],
+          "meaning": "Temprano, Rápido",
+          "example": "早く起きる。"
+        },
+        {
+          "kanji": "草",
+          "on": ["ソウ"],
+          "kun": ["くさ"],
+          "meaning": "Hierba",
+          "example": "草を刈る。"
+        },
+        {
+          "kanji": "足",
+          "on": ["ソク"],
+          "kun": ["あし", "た.りる"],
+          "meaning": "Pierna, Pie",
+          "example": "足が速い。"
+        },
+        {
+          "kanji": "村",
+          "on": ["ソン"],
+          "kun": ["むら"],
+          "meaning": "Aldea, Pueblo",
+          "example": "村で暮らす。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 12 - Kanji Nivel 1",
+      "characters": ["大", "男", "竹", "中", "虫"],
+      "vocabulary": [
+        {
+          "kanji": "大",
+          "on": ["ダイ", "タイ"],
+          "kun": ["おお(きい)"],
+          "meaning": "Grande",
+          "example": "大きな家。"
+        },
+        {
+          "kanji": "男",
+          "on": ["ダン", "ナン"],
+          "kun": ["おとこ"],
+          "meaning": "Hombre",
+          "example": "男の子が走る。"
+        },
+        {
+          "kanji": "竹",
+          "on": ["チク"],
+          "kun": ["たけ"],
+          "meaning": "Bambú",
+          "example": "竹林を歩く。"
+        },
+        {
+          "kanji": "中",
+          "on": ["チュウ"],
+          "kun": ["なか"],
+          "meaning": "Dentro, Medio",
+          "example": "中に入る。"
+        },
+        {
+          "kanji": "虫",
+          "on": ["チュウ"],
+          "kun": ["むし"],
+          "meaning": "Insecto",
+          "example": "虫が飛んでいる。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 13 - Kanji Nivel 1",
+      "characters": ["町", "天", "田", "土", "二"],
+      "vocabulary": [
+        {
+          "kanji": "町",
+          "on": ["チョウ"],
+          "kun": ["まち"],
+          "meaning": "Ciudad, Pueblo",
+          "example": "町を散歩する。"
+        },
+        {
+          "kanji": "天",
+          "on": ["テン"],
+          "kun": ["あまつ", "あめ"],
+          "meaning": "Cielo, Paraíso",
+          "example": "天気がいい。"
+        },
+        {
+          "kanji": "田",
+          "on": ["デン"],
+          "kun": ["た"],
+          "meaning": "Arrozal, Campo",
+          "example": "田んぼで稲作。"
+        },
+        {
+          "kanji": "土",
+          "on": ["ド", "ト"],
+          "kun": ["つち"],
+          "meaning": "Tierra, Suelo",
+          "example": "土を踏む。"
+        },
+        {
+          "kanji": "二",
+          "on": ["ニ"],
+          "kun": ["ふた(つ)"],
+          "meaning": "Dos",
+          "example": "二つのリンゴ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 14 - Kanji Nivel 1",
+      "characters": ["日", "入", "年", "白", "八"],
+      "vocabulary": [
+        {
+          "kanji": "日",
+          "on": ["ニチ", "ジツ"],
+          "kun": ["ひ", "か"],
+          "meaning": "Sol, Día",
+          "example": "今日は日曜日。"
+        },
+        {
+          "kanji": "入",
+          "on": ["ニュウ"],
+          "kun": ["い.る", "はい.る"],
+          "meaning": "Entrar",
+          "example": "部屋に入る。"
+        },
+        {
+          "kanji": "年",
+          "on": ["ネン"],
+          "kun": ["とし"],
+          "meaning": "Año",
+          "example": "新しい年。"
+        },
+        {
+          "kanji": "白",
+          "on": ["ハク", "ビャク"],
+          "kun": ["しろ"],
+          "meaning": "Blanco",
+          "example": "白い雪。"
+        },
+        {
+          "kanji": "八",
+          "on": ["ハチ"],
+          "kun": ["やっ(つ)"],
+          "meaning": "Ocho",
+          "example": "八月に生まれる。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 15 - Kanji Nivel 1",
+      "characters": ["百", "文", "木", "本", "名"],
+      "vocabulary": [
+        {
+          "kanji": "百",
+          "on": ["ヒャク"],
+          "kun": ["もも"],
+          "meaning": "Cien",
+          "example": "百円ショップ。"
+        },
+        {
+          "kanji": "文",
+          "on": ["ブン", "モン"],
+          "kun": ["ふみ"],
+          "meaning": "Escritura, Cultura",
+          "example": "文を読む。"
+        },
+        {
+          "kanji": "木",
+          "on": ["ボク", "モク"],
+          "kun": ["き"],
+          "meaning": "Árbol",
+          "example": "木の下で休む。"
+        },
+        {
+          "kanji": "本",
+          "on": ["ホン"],
+          "kun": ["もと"],
+          "meaning": "Libro, Origen",
+          "example": "本を開く。"
+        },
+        {
+          "kanji": "名",
+          "on": ["メイ", "ミョウ"],
+          "kun": ["な"],
+          "meaning": "Nombre",
+          "example": "名前を呼ぶ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 16 - Kanji Nivel 1",
+      "characters": ["目", "立", "力", "林", "六"],
+      "vocabulary": [
+        {
+          "kanji": "目",
+          "on": ["モク", "ボク"],
+          "kun": ["め"],
+          "meaning": "Ojo",
+          "example": "目を閉じる。"
+        },
+        {
+          "kanji": "立",
+          "on": ["リツ", "リュウ"],
+          "kun": ["た.つ"],
+          "meaning": "Estar de pie",
+          "example": "立って待つ。"
+        },
+        {
+          "kanji": "力",
+          "on": ["リョク", "リキ"],
+          "kun": ["ちから"],
+          "meaning": "Fuerza",
+          "example": "力を合わせる。"
+        },
+        {
+          "kanji": "林",
+          "on": ["リン"],
+          "kun": ["はやし"],
+          "meaning": "Bosque pequeño",
+          "example": "林の中を歩く。"
+        },
+        {
+          "kanji": "六",
+          "on": ["ロク"],
+          "kun": ["む.つ"],
+          "meaning": "Seis",
+          "example": "六つの花。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 1 - Kanji Nivel 2",
+      "characters": ["引", "羽", "雲", "園", "遠"],
+      "vocabulary": [
+        {
+          "kanji": "引",
+          "on": ["イン"],
+          "kun": ["ひ.く"],
+          "meaning": "Tirar, jalar",
+          "example": "綱を引く。"
+        },
+        {
+          "kanji": "羽",
+          "on": ["ウ"],
+          "kun": ["はね"],
+          "meaning": "Pluma, ala",
+          "example": "鳥の羽がふわり。"
+        },
+        {
+          "kanji": "雲",
+          "on": ["ウン"],
+          "kun": ["くも"],
+          "meaning": "Nube",
+          "example": "空に雲が浮かぶ。"
+        },
+        {
+          "kanji": "園",
+          "on": ["エン"],
+          "kun": ["その"],
+          "meaning": "Jardín, parque",
+          "example": "幼稚園へ行く。"
+        },
+        {
+          "kanji": "遠",
+          "on": ["エン"],
+          "kun": ["とお.い"],
+          "meaning": "Lejano",
+          "example": "遠い山が見える。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 2 - Kanji Nivel 2",
+      "characters": ["何", "科", "夏", "家", "歌"],
+      "vocabulary": [
+        {
+          "kanji": "何",
+          "on": ["カ"],
+          "kun": ["なに", "なん"],
+          "meaning": "Qué",
+          "example": "何をしますか？"
+        },
+        {
+          "kanji": "科",
+          "on": ["カ"],
+          "kun": [],
+          "meaning": "Rama (de estudio), departamento",
+          "example": "理科の実験。"
+        },
+        {
+          "kanji": "夏",
+          "on": ["カ"],
+          "kun": ["なつ"],
+          "meaning": "Verano",
+          "example": "夏休みを楽しむ。"
+        },
+        {
+          "kanji": "家",
+          "on": ["カ"],
+          "kun": ["いえ", "うち"],
+          "meaning": "Casa, familia",
+          "example": "家に帰る。"
+        },
+        {
+          "kanji": "歌",
+          "on": ["カ"],
+          "kun": ["うた"],
+          "meaning": "Canción",
+          "example": "美しい歌を歌う。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 3 - Kanji Nivel 2",
+      "characters": ["画", "回", "会", "海", "絵"],
+      "vocabulary": [
+        {
+          "kanji": "画",
+          "on": ["ガ"],
+          "kun": [],
+          "meaning": "Imagen, dibujo",
+          "example": "画家が絵を描く。"
+        },
+        {
+          "kanji": "回",
+          "on": ["カイ"],
+          "kun": ["まわ.る", "まわ.す"],
+          "meaning": "Vuelta, repetir",
+          "example": "何回も挑戦する。"
+        },
+        {
+          "kanji": "会",
+          "on": ["カイ", "エ"],
+          "kun": ["あ.う"],
+          "meaning": "Reunirse, encontrarse",
+          "example": "友達と会う。"
+        },
+        {
+          "kanji": "海",
+          "on": ["カイ"],
+          "kun": ["うみ"],
+          "meaning": "Mar",
+          "example": "海で泳ぐ。"
+        },
+        {
+          "kanji": "絵",
+          "on": ["カイ"],
+          "kun": ["え"],
+          "meaning": "Pintura, imagen",
+          "example": "絵を飾る。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 4 - Kanji Nivel 2",
+      "characters": ["外", "角", "楽", "活", "間"],
+      "vocabulary": [
+        {
+          "kanji": "外",
+          "on": ["ガイ"],
+          "kun": ["そと"],
+          "meaning": "Exterior, fuera",
+          "example": "外で遊ぶ。"
+        },
+        {
+          "kanji": "角",
+          "on": ["カク"],
+          "kun": ["かど", "つの"],
+          "meaning": "Esquina, cuerno",
+          "example": "角を曲がる。"
+        },
+        {
+          "kanji": "楽",
+          "on": ["ガク", "ラク"],
+          "kun": ["たの.しい"],
+          "meaning": "Divertido, música",
+          "example": "楽しい時間を過ごす。"
+        },
+        {
+          "kanji": "活",
+          "on": ["カツ"],
+          "kun": [],
+          "meaning": "Vida, activo",
+          "example": "活発な子供。"
+        },
+        {
+          "kanji": "間",
+          "on": ["カン"],
+          "kun": ["あいだ"],
+          "meaning": "Espacio, intervalo",
+          "example": "部屋の間が狭い。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 5 - Kanji Nivel 2",
+      "characters": ["丸", "岩", "顔", "汽", "記"],
+      "vocabulary": [
+        {
+          "kanji": "丸",
+          "on": ["ガン"],
+          "kun": ["まる"],
+          "meaning": "Redondo, círculo",
+          "example": "顔が丸い。"
+        },
+        {
+          "kanji": "岩",
+          "on": ["ガン"],
+          "kun": ["いわ"],
+          "meaning": "Roca",
+          "example": "大きな岩。"
+        },
+        {
+          "kanji": "顔",
+          "on": ["ガン"],
+          "kun": ["かお"],
+          "meaning": "Rostro, cara",
+          "example": "笑顔が素敵。"
+        },
+        {
+          "kanji": "汽",
+          "on": ["キ"],
+          "kun": [],
+          "meaning": "Vapor, humo",
+          "example": "汽車に乗る。"
+        },
+        {
+          "kanji": "記",
+          "on": ["キ"],
+          "kun": ["しる.す"],
+          "meaning": "Registrar, anotar",
+          "example": "日記を記す。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 6 - Kanji Nivel 2",
+      "characters": ["帰", "弓", "牛", "魚", "京"],
+      "vocabulary": [
+        {
+          "kanji": "帰",
+          "on": ["キ"],
+          "kun": ["かえ.る"],
+          "meaning": "Volver, regresar",
+          "example": "家に帰る。"
+        },
+        {
+          "kanji": "弓",
+          "on": ["キュウ"],
+          "kun": ["ゆみ"],
+          "meaning": "Arco",
+          "example": "弓を引く。"
+        },
+        {
+          "kanji": "牛",
+          "on": ["ギュウ"],
+          "kun": ["うし"],
+          "meaning": "Vaca, buey",
+          "example": "牛乳を飲む。"
+        },
+        {
+          "kanji": "魚",
+          "on": ["ギョ"],
+          "kun": ["さかな"],
+          "meaning": "Pez",
+          "example": "魚を釣る。"
+        },
+        {
+          "kanji": "京",
+          "on": ["キョウ"],
+          "kun": ["みやこ"],
+          "meaning": "Capital",
+          "example": "大京の歴史。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 7 - Kanji Nivel 2",
+      "characters": ["強", "教", "近", "兄", "形"],
+      "vocabulary": [
+        {
+          "kanji": "強",
+          "on": ["キョウ"],
+          "kun": ["つよ.い"],
+          "meaning": "Fuerte",
+          "example": "強い風が吹く。"
+        },
+        {
+          "kanji": "教",
+          "on": ["キョウ"],
+          "kun": ["おし.える"],
+          "meaning": "Enseñar, instruir",
+          "example": "先生が教える。"
+        },
+        {
+          "kanji": "近",
+          "on": ["キン"],
+          "kun": ["ちか.い"],
+          "meaning": "Cercano",
+          "example": "近所の店。"
+        },
+        {
+          "kanji": "兄",
+          "on": ["ケイ", "キョウ"],
+          "kun": ["あに"],
+          "meaning": "Hermano mayor",
+          "example": "兄と遊ぶ。"
+        },
+        {
+          "kanji": "形",
+          "on": ["ケイ"],
+          "kun": ["かたち"],
+          "meaning": "Forma, figura",
+          "example": "形が整っている。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 8 - Kanji Nivel 2",
+      "characters": ["計", "元", "言", "原", "戸"],
+      "vocabulary": [
+        {
+          "kanji": "計",
+          "on": ["ケイ"],
+          "kun": ["はか.る"],
+          "meaning": "Medir, planificar",
+          "example": "計画を立てる。"
+        },
+        {
+          "kanji": "元",
+          "on": ["ゲン"],
+          "kun": ["もと"],
+          "meaning": "Origen, base",
+          "example": "元気でいる。"
+        },
+        {
+          "kanji": "言",
+          "on": ["ゲン", "ゴン"],
+          "kun": ["い.う"],
+          "meaning": "Decir",
+          "example": "言葉を選ぶ。"
+        },
+        {
+          "kanji": "原",
+          "on": ["ゲン"],
+          "kun": ["はら"],
+          "meaning": "Pradera, origen",
+          "example": "原っぱで遊ぶ。"
+        },
+        {
+          "kanji": "戸",
+          "on": ["コ"],
+          "kun": ["と"],
+          "meaning": "Puerta, casa",
+          "example": "戸を開ける。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 9 - Kanji Nivel 2",
+      "characters": ["古", "午", "後", "語", "工"],
+      "vocabulary": [
+        {
+          "kanji": "古",
+          "on": ["コ"],
+          "kun": ["ふる.い"],
+          "meaning": "Antiguo",
+          "example": "古い本。"
+        },
+        {
+          "kanji": "午",
+          "on": ["ゴ"],
+          "kun": [],
+          "meaning": "Mediodía",
+          "example": "正午の太陽。"
+        },
+        {
+          "kanji": "後",
+          "on": ["ゴ", "コウ"],
+          "kun": ["のち", "あと"],
+          "meaning": "Después, detrás",
+          "example": "後で会う。"
+        },
+        {
+          "kanji": "語",
+          "on": ["ゴ"],
+          "kun": ["かた.る"],
+          "meaning": "Idioma, palabra",
+          "example": "日本語を語る。"
+        },
+        {
+          "kanji": "工",
+          "on": ["コウ"],
+          "kun": [],
+          "meaning": "Trabajo, construcción",
+          "example": "工場で働く。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 10 - Kanji Nivel 2",
+      "characters": ["公", "広", "交", "光", "考"],
+      "vocabulary": [
+        {
+          "kanji": "公",
+          "on": ["コウ"],
+          "kun": [],
+          "meaning": "Público",
+          "example": "公共の施設。"
+        },
+        {
+          "kanji": "広",
+          "on": ["コウ"],
+          "kun": ["ひろ.い"],
+          "meaning": "Amplio, extenso",
+          "example": "広い部屋。"
+        },
+        {
+          "kanji": "交",
+          "on": ["コウ"],
+          "kun": ["まじ.わる"],
+          "meaning": "Cruzar, mezclar",
+          "example": "文化が交わる。"
+        },
+        {
+          "kanji": "光",
+          "on": ["コウ"],
+          "kun": ["ひか.る"],
+          "meaning": "Luz",
+          "example": "光が差す。"
+        },
+        {
+          "kanji": "考",
+          "on": ["コウ"],
+          "kun": ["かんが.える"],
+          "meaning": "Pensar",
+          "example": "よく考える。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 11 - Kanji Nivel 2",
+      "characters": ["行", "高", "黄", "合", "谷"],
+      "vocabulary": [
+        {
+          "kanji": "行",
+          "on": ["コウ", "ギョウ"],
+          "kun": ["い.く", "ゆ.く"],
+          "meaning": "Ir, camino",
+          "example": "学校へ行く。"
+        },
+        {
+          "kanji": "高",
+          "on": ["コウ"],
+          "kun": ["たか.い"],
+          "meaning": "Alto, caro",
+          "example": "高い山。"
+        },
+        {
+          "kanji": "黄",
+          "on": ["コウ"],
+          "kun": ["き"],
+          "meaning": "Amarillo",
+          "example": "黄葉が舞う。"
+        },
+        {
+          "kanji": "合",
+          "on": ["ゴウ"],
+          "kun": ["あ.う"],
+          "meaning": "Unir, coincidir",
+          "example": "意見が合う。"
+        },
+        {
+          "kanji": "谷",
+          "on": ["コク"],
+          "kun": ["たに"],
+          "meaning": "Valle",
+          "example": "谷間を歩く。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 12 - Kanji Nivel 2",
+      "characters": ["国", "黒", "今", "才", "細"],
+      "vocabulary": [
+        {
+          "kanji": "国",
+          "on": ["コク"],
+          "kun": ["くに"],
+          "meaning": "País",
+          "example": "日本は美しい国。"
+        },
+        {
+          "kanji": "黒",
+          "on": ["コク"],
+          "kun": ["くろ"],
+          "meaning": "Negro",
+          "example": "黒い猫。"
+        },
+        {
+          "kanji": "今",
+          "on": ["コン"],
+          "kun": ["いま"],
+          "meaning": "Ahora",
+          "example": "今すぐ来て。"
+        },
+        {
+          "kanji": "才",
+          "on": ["サイ"],
+          "kun": [],
+          "meaning": "Talento, capacidad",
+          "example": "彼は才気溢れる。"
+        },
+        {
+          "kanji": "細",
+          "on": ["サイ"],
+          "kun": ["ほそ.い"],
+          "meaning": "Fino, delgado",
+          "example": "細い道。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 13 - Kanji Nivel 2",
+      "characters": ["作", "算", "止", "市", "矢"],
+      "vocabulary": [
+        {
+          "kanji": "作",
+          "on": ["サク", "サ"],
+          "kun": ["つく.る"],
+          "meaning": "Hacer, crear",
+          "example": "料理を作る。"
+        },
+        {
+          "kanji": "算",
+          "on": ["サン"],
+          "kun": [],
+          "meaning": "Calcular, contar",
+          "example": "算数の問題。"
+        },
+        {
+          "kanji": "止",
+          "on": ["シ"],
+          "kun": ["と.まる", "や.める"],
+          "meaning": "Detener, parar",
+          "example": "車が止まる。"
+        },
+        {
+          "kanji": "市",
+          "on": ["シ"],
+          "kun": ["いち"],
+          "meaning": "Mercado, ciudad",
+          "example": "市に出かける。"
+        },
+        {
+          "kanji": "矢",
+          "on": ["シ"],
+          "kun": ["や"],
+          "meaning": "Flecha",
+          "example": "矢を放つ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 14 - Kanji Nivel 2",
+      "characters": ["姉", "思", "紙", "寺", "自"],
+      "vocabulary": [
+        {
+          "kanji": "姉",
+          "on": ["シ"],
+          "kun": ["あね"],
+          "meaning": "Hermana mayor",
+          "example": "姉と話す。"
+        },
+        {
+          "kanji": "思",
+          "on": ["シ"],
+          "kun": ["おも.う"],
+          "meaning": "Pensar",
+          "example": "ゆっくりと思う。"
+        },
+        {
+          "kanji": "紙",
+          "on": ["シ"],
+          "kun": ["かみ"],
+          "meaning": "Papel",
+          "example": "紙に書く。"
+        },
+        {
+          "kanji": "寺",
+          "on": ["ジ"],
+          "kun": ["てら"],
+          "meaning": "Templo",
+          "example": "寺を参拝する。"
+        },
+        {
+          "kanji": "自",
+          "on": ["ジ"],
+          "kun": ["みずか.ら"],
+          "meaning": "Uno mismo",
+          "example": "自分で決める。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 15 - Kanji Nivel 2",
+      "characters": ["時", "室", "社", "弱", "首"],
+      "vocabulary": [
+        {
+          "kanji": "時",
+          "on": ["ジ"],
+          "kun": ["とき"],
+          "meaning": "Tiempo, hora",
+          "example": "時が過ぎる。"
+        },
+        {
+          "kanji": "室",
+          "on": ["シツ"],
+          "kun": ["むろ"],
+          "meaning": "Habitación",
+          "example": "室温を調整する。"
+        },
+        {
+          "kanji": "社",
+          "on": ["シャ"],
+          "kun": ["やしろ"],
+          "meaning": "Santuario, empresa",
+          "example": "神社を参拝する。"
+        },
+        {
+          "kanji": "弱",
+          "on": ["ジャク"],
+          "kun": ["よわ.い"],
+          "meaning": "Débil",
+          "example": "体が弱い。"
+        },
+        {
+          "kanji": "首",
+          "on": ["シュ"],
+          "kun": ["くび"],
+          "meaning": "Cuello",
+          "example": "首を回す。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 16 - Kanji Nivel 2",
+      "characters": ["秋", "週", "春", "書", "少"],
+      "vocabulary": [
+        {
+          "kanji": "秋",
+          "on": ["シュウ"],
+          "kun": ["あき"],
+          "meaning": "Otoño",
+          "example": "秋の風景。"
+        },
+        {
+          "kanji": "週",
+          "on": ["シュウ"],
+          "kun": [],
+          "meaning": "Semana",
+          "example": "一週間後。"
+        },
+        {
+          "kanji": "春",
+          "on": ["シュン"],
+          "kun": ["はる"],
+          "meaning": "Primavera",
+          "example": "春が来る。"
+        },
+        {
+          "kanji": "書",
+          "on": ["ショ"],
+          "kun": ["か.く"],
+          "meaning": "Escribir, libro",
+          "example": "手紙を書く。"
+        },
+        {
+          "kanji": "少",
+          "on": ["ショウ"],
+          "kun": ["すく.ない"],
+          "meaning": "Poco",
+          "example": "少しだけ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 17 - Kanji Nivel 2",
+      "characters": ["場", "色", "食", "心", "新"],
+      "vocabulary": [
+        {
+          "kanji": "場",
+          "on": ["ジョウ"],
+          "kun": ["ば"],
+          "meaning": "Lugar",
+          "example": "集会の場。"
+        },
+        {
+          "kanji": "色",
+          "on": ["ショク", "シキ"],
+          "kun": ["いろ"],
+          "meaning": "Color",
+          "example": "美しい色。"
+        },
+        {
+          "kanji": "食",
+          "on": ["ショク", "ジキ"],
+          "kun": ["た.べる", "く.う"],
+          "meaning": "Comer",
+          "example": "食事をする。"
+        },
+        {
+          "kanji": "心",
+          "on": ["シン"],
+          "kun": ["こころ"],
+          "meaning": "Corazón, mente",
+          "example": "心を込める。"
+        },
+        {
+          "kanji": "新",
+          "on": ["シン"],
+          "kun": ["あたら.しい"],
+          "meaning": "Nuevo",
+          "example": "新しい服。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 18 - Kanji Nivel 2",
+      "characters": ["親", "図", "数", "西", "声"],
+      "vocabulary": [
+        {
+          "kanji": "親",
+          "on": ["シン"],
+          "kun": ["おや", "した.しい"],
+          "meaning": "Padre, familiar",
+          "example": "親切な人。"
+        },
+        {
+          "kanji": "図",
+          "on": ["ズ"],
+          "kun": ["はか.る"],
+          "meaning": "Plano, dibujo",
+          "example": "図を描く。"
+        },
+        {
+          "kanji": "数",
+          "on": ["スウ"],
+          "kun": ["かず"],
+          "meaning": "Número, contar",
+          "example": "数を数える。"
+        },
+        {
+          "kanji": "西",
+          "on": ["セイ", "サイ"],
+          "kun": ["にし"],
+          "meaning": "Oeste",
+          "example": "西の空。"
+        },
+        {
+          "kanji": "声",
+          "on": ["セイ", "ショウ"],
+          "kun": ["こえ"],
+          "meaning": "Voz",
+          "example": "大きな声。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 19 - Kanji Nivel 2",
+      "characters": ["星", "晴", "切", "雪", "船"],
+      "vocabulary": [
+        {
+          "kanji": "星",
+          "on": ["セイ"],
+          "kun": ["ほし"],
+          "meaning": "Estrella",
+          "example": "夜空の星。"
+        },
+        {
+          "kanji": "晴",
+          "on": ["セイ"],
+          "kun": ["は.れる"],
+          "meaning": "Despejado",
+          "example": "晴れた日。"
+        },
+        {
+          "kanji": "切",
+          "on": ["セツ", "ソッ"],
+          "kun": ["き.る", "き.れる"],
+          "meaning": "Cortar",
+          "example": "紙を切る。"
+        },
+        {
+          "kanji": "雪",
+          "on": ["セツ"],
+          "kun": ["ゆき"],
+          "meaning": "Nieve",
+          "example": "雪が降る。"
+        },
+        {
+          "kanji": "船",
+          "on": ["セン"],
+          "kun": ["ふね"],
+          "meaning": "Barco",
+          "example": "船に乗る。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 20 - Kanji Nivel 2",
+      "characters": ["線", "前", "組", "走", "多"],
+      "vocabulary": [
+        {
+          "kanji": "線",
+          "on": ["セン"],
+          "kun": ["すじ"],
+          "meaning": "Línea",
+          "example": "線を引く。"
+        },
+        {
+          "kanji": "前",
+          "on": ["ゼン"],
+          "kun": ["まえ"],
+          "meaning": "Delante, antes",
+          "example": "前に進む。"
+        },
+        {
+          "kanji": "組",
+          "on": ["ソ"],
+          "kun": ["く.む"],
+          "meaning": "Agrupar, conjunto",
+          "example": "組を作る。"
+        },
+        {
+          "kanji": "走",
+          "on": ["ソウ"],
+          "kun": ["はし.る"],
+          "meaning": "Correr",
+          "example": "走るのが速い。"
+        },
+        {
+          "kanji": "多",
+          "on": ["タ"],
+          "kun": ["おお.い"],
+          "meaning": "Mucho, muchos",
+          "example": "人が多い。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 21 - Kanji Nivel 2",
+      "characters": ["太", "体", "台", "地", "池"],
+      "vocabulary": [
+        {
+          "kanji": "太",
+          "on": ["タイ"],
+          "kun": ["ふと.い"],
+          "meaning": "Gordo, grueso",
+          "example": "太い木。"
+        },
+        {
+          "kanji": "体",
+          "on": ["タイ"],
+          "kun": ["からだ"],
+          "meaning": "Cuerpo",
+          "example": "体を動かす。"
+        },
+        {
+          "kanji": "台",
+          "on": ["ダイ"],
+          "kun": ["うてな"],
+          "meaning": "Plataforma, pedestal",
+          "example": "台の上に置く。"
+        },
+        {
+          "kanji": "地",
+          "on": ["チ"],
+          "kun": ["じ"],
+          "meaning": "Tierra, suelo",
+          "example": "地面を歩く。"
+        },
+        {
+          "kanji": "池",
+          "on": ["チ"],
+          "kun": ["いけ"],
+          "meaning": "Estanque",
+          "example": "池に鯉が泳ぐ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 22 - Kanji Nivel 2",
+      "characters": ["知", "茶", "昼", "長", "鳥"],
+      "vocabulary": [
+        {
+          "kanji": "知",
+          "on": ["チ"],
+          "kun": ["し.る"],
+          "meaning": "Saber, conocer",
+          "example": "知識を深める。"
+        },
+        {
+          "kanji": "茶",
+          "on": ["チャ"],
+          "kun": ["ちゃ"],
+          "meaning": "Té",
+          "example": "お茶を飲む。"
+        },
+        {
+          "kanji": "昼",
+          "on": ["チュウ"],
+          "kun": ["ひる"],
+          "meaning": "Mediodía",
+          "example": "昼ごはんを食べる。"
+        },
+        {
+          "kanji": "長",
+          "on": ["チョウ"],
+          "kun": ["なが.い"],
+          "meaning": "Largo, jefe",
+          "example": "長い道を歩く。"
+        },
+        {
+          "kanji": "鳥",
+          "on": ["チョウ"],
+          "kun": ["とり"],
+          "meaning": "Pájaro",
+          "example": "鳥がさえずる。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 23 - Kanji Nivel 2",
+      "characters": ["朝", "直", "通", "弟", "店"],
+      "vocabulary": [
+        {
+          "kanji": "朝",
+          "on": ["チョウ"],
+          "kun": ["あさ"],
+          "meaning": "Mañana",
+          "example": "朝ごはんを食べる。"
+        },
+        {
+          "kanji": "直",
+          "on": ["チョク"],
+          "kun": ["ただ.ちに", "なお.す"],
+          "meaning": "Directo, corregir",
+          "example": "直ちに回答する。"
+        },
+        {
+          "kanji": "通",
+          "on": ["ツウ"],
+          "kun": ["とお.る"],
+          "meaning": "Pasar, comunicar",
+          "example": "道を通る。"
+        },
+        {
+          "kanji": "弟",
+          "on": ["テイ", "ダイ"],
+          "kun": ["おとうと"],
+          "meaning": "Hermano menor",
+          "example": "弟と遊ぶ。"
+        },
+        {
+          "kanji": "店",
+          "on": ["テン"],
+          "kun": ["みせ"],
+          "meaning": "Tienda",
+          "example": "店で買い物する。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 24 - Kanji Nivel 2",
+      "characters": ["点", "電", "刀", "冬", "当"],
+      "vocabulary": [
+        {
+          "kanji": "点",
+          "on": ["テン"],
+          "kun": ["てん"],
+          "meaning": "Punto, marca",
+          "example": "点を打つ。"
+        },
+        {
+          "kanji": "電",
+          "on": ["デン"],
+          "kun": [],
+          "meaning": "Electricidad",
+          "example": "電車が走る。"
+        },
+        {
+          "kanji": "刀",
+          "on": ["トウ"],
+          "kun": ["かたな"],
+          "meaning": "Espada",
+          "example": "刀を振るう。"
+        },
+        {
+          "kanji": "冬",
+          "on": ["トウ"],
+          "kun": ["ふゆ"],
+          "meaning": "Invierno",
+          "example": "冬の寒さ。"
+        },
+        {
+          "kanji": "当",
+          "on": ["トウ"],
+          "kun": ["あ.たる"],
+          "meaning": "Coincidir, acertar",
+          "example": "宝くじが当たる。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 25 - Kanji Nivel 2",
+      "characters": ["東", "答", "頭", "同", "道"],
+      "vocabulary": [
+        {
+          "kanji": "東",
+          "on": ["トウ"],
+          "kun": ["ひがし"],
+          "meaning": "Este",
+          "example": "東の空。"
+        },
+        {
+          "kanji": "答",
+          "on": ["トウ"],
+          "kun": ["こた.える"],
+          "meaning": "Responder",
+          "example": "質問に答える。"
+        },
+        {
+          "kanji": "頭",
+          "on": ["トウ"],
+          "kun": ["あたま"],
+          "meaning": "Cabeza",
+          "example": "頭が痛い。"
+        },
+        {
+          "kanji": "同",
+          "on": ["ドウ"],
+          "kun": ["おな.じ"],
+          "meaning": "Igual",
+          "example": "同じ意見。"
+        },
+        {
+          "kanji": "道",
+          "on": ["ドウ"],
+          "kun": ["みち"],
+          "meaning": "Camino, vía",
+          "example": "道を歩く。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 26 - Kanji Nivel 2",
+      "characters": ["読", "内", "南", "肉", "馬"],
+      "vocabulary": [
+        {
+          "kanji": "読",
+          "on": ["ドク", "トク"],
+          "kun": ["よ.む"],
+          "meaning": "Leer",
+          "example": "本を読む。"
+        },
+        {
+          "kanji": "内",
+          "on": ["ナイ"],
+          "kun": ["うち"],
+          "meaning": "Dentro",
+          "example": "内緒にする。"
+        },
+        {
+          "kanji": "南",
+          "on": ["ナン"],
+          "kun": ["みなみ"],
+          "meaning": "Sur",
+          "example": "南国の風。"
+        },
+        {
+          "kanji": "肉",
+          "on": ["ニク"],
+          "kun": ["しし.る"],
+          "meaning": "Carne",
+          "example": "肉を食べる。"
+        },
+        {
+          "kanji": "馬",
+          "on": ["バ"],
+          "kun": ["うま"],
+          "meaning": "Caballo",
+          "example": "馬に乗る。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 27 - Kanji Nivel 2",
+      "characters": ["売", "買", "麦", "半", "番"],
+      "vocabulary": [
+        {
+          "kanji": "売",
+          "on": ["バイ"],
+          "kun": ["う.る"],
+          "meaning": "Vender",
+          "example": "店で売る。"
+        },
+        {
+          "kanji": "買",
+          "on": ["バイ"],
+          "kun": ["か.う"],
+          "meaning": "Comprar",
+          "example": "本を買う。"
+        },
+        {
+          "kanji": "麦",
+          "on": ["バク"],
+          "kun": ["むぎ"],
+          "meaning": "Trigo, cebada",
+          "example": "麦茶を飲む。"
+        },
+        {
+          "kanji": "半",
+          "on": ["ハン"],
+          "kun": ["なか.ば"],
+          "meaning": "Mitad",
+          "example": "半分に切る。"
+        },
+        {
+          "kanji": "番",
+          "on": ["バン"],
+          "kun": ["つが.い"],
+          "meaning": "Número, turno",
+          "example": "番を待つ。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 28 - Kanji Nivel 2",
+      "characters": ["父", "風", "分", "聞", "米"],
+      "vocabulary": [
+        {
+          "kanji": "父",
+          "on": ["フ"],
+          "kun": ["ちち"],
+          "meaning": "Padre",
+          "example": "父に会う。"
+        },
+        {
+          "kanji": "風",
+          "on": ["フウ", "フ"],
+          "kun": ["かぜ"],
+          "meaning": "Viento",
+          "example": "風が強い。"
+        },
+        {
+          "kanji": "分",
+          "on": ["ブン", "フン"],
+          "kun": ["わ.ける", "わ.かる"],
+          "meaning": "Dividir, entender",
+          "example": "時間を分ける。"
+        },
+        {
+          "kanji": "聞",
+          "on": ["ブン", "モン"],
+          "kun": ["き.く"],
+          "meaning": "Escuchar",
+          "example": "音を聞く。"
+        },
+        {
+          "kanji": "米",
+          "on": ["ベイ"],
+          "kun": ["こめ"],
+          "meaning": "Arroz",
+          "example": "米を炊く。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 29 - Kanji Nivel 2",
+      "characters": ["歩", "母", "方", "北", "毎"],
+      "vocabulary": [
+        {
+          "kanji": "歩",
+          "on": ["ホ"],
+          "kun": ["ある.く"],
+          "meaning": "Caminar",
+          "example": "歩いて行く。"
+        },
+        {
+          "kanji": "母",
+          "on": ["ボ"],
+          "kun": ["はは"],
+          "meaning": "Madre",
+          "example": "母と話す。"
+        },
+        {
+          "kanji": "方",
+          "on": ["ホウ"],
+          "kun": ["かた"],
+          "meaning": "Dirección, persona",
+          "example": "正しい方を選ぶ。"
+        },
+        {
+          "kanji": "北",
+          "on": ["ホク"],
+          "kun": ["きた"],
+          "meaning": "Norte",
+          "example": "北風が吹く。"
+        },
+        {
+          "kanji": "毎",
+          "on": ["マイ"],
+          "kun": ["ごと"],
+          "meaning": "Cada",
+          "example": "毎日勉強する。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 30 - Kanji Nivel 2",
+      "characters": ["妹", "万", "明", "鳴", "毛"],
+      "vocabulary": [
+        {
+          "kanji": "妹",
+          "on": ["マイ"],
+          "kun": ["いもうと"],
+          "meaning": "Hermana menor",
+          "example": "妹が笑う。"
+        },
+        {
+          "kanji": "万",
+          "on": ["マン"],
+          "kun": ["よろず"],
+          "meaning": "Diez mil, innumerable",
+          "example": "万歳を叫ぶ。"
+        },
+        {
+          "kanji": "明",
+          "on": ["メイ", "ミョウ"],
+          "kun": ["あか.るい"],
+          "meaning": "Brillante, claro",
+          "example": "明るい部屋。"
+        },
+        {
+          "kanji": "鳴",
+          "on": ["メイ"],
+          "kun": ["な.く"],
+          "meaning": "Chillar, cantar",
+          "example": "鳥が鳴く。"
+        },
+        {
+          "kanji": "毛",
+          "on": ["モウ"],
+          "kun": ["け"],
+          "meaning": "Pelo, fibra",
+          "example": "犬の毛を掃く。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 31 - Kanji Nivel 2",
+      "characters": ["門", "夜", "野", "友", "用"],
+      "vocabulary": [
+        {
+          "kanji": "門",
+          "on": ["モン"],
+          "kun": ["かど"],
+          "meaning": "Puerta",
+          "example": "門をくぐる。"
+        },
+        {
+          "kanji": "夜",
+          "on": ["ヤ"],
+          "kun": ["よる"],
+          "meaning": "Noche",
+          "example": "夜が更ける。"
+        },
+        {
+          "kanji": "野",
+          "on": ["ヤ"],
+          "kun": ["の"],
+          "meaning": "Campo, salvaje",
+          "example": "野原を走る。"
+        },
+        {
+          "kanji": "友",
+          "on": ["ユウ"],
+          "kun": ["とも"],
+          "meaning": "Amigo",
+          "example": "友達と遊ぶ。"
+        },
+        {
+          "kanji": "用",
+          "on": ["ヨウ"],
+          "kun": ["もち.いる"],
+          "meaning": "Uso, utilizar",
+          "example": "用を済ます。"
+        }
+      ]
+    },
+    {
+      "lesson": "Lección 32 - Kanji Nivel 2",
+      "characters": ["曜", "来", "里", "理", "話"],
+      "vocabulary": [
+        {
+          "kanji": "曜",
+          "on": ["ヨウ"],
+          "kun": [],
+          "meaning": "Día de la semana (sufijo)",
+          "example": "月曜、火曜…"
+        },
+        {
+          "kanji": "来",
+          "on": ["ライ"],
+          "kun": ["く.る"],
+          "meaning": "Venir",
+          "example": "友が来る。"
+        },
+        {
+          "kanji": "里",
+          "on": ["リ"],
+          "kun": ["さと"],
+          "meaning": "Pueblo, campo",
+          "example": "里山を歩く。"
+        },
+        {
+          "kanji": "理",
+          "on": ["リ"],
+          "kun": ["ことわり"],
+          "meaning": "Razón, lógica",
+          "example": "理を説く。"
+        },
+        {
+          "kanji": "話",
+          "on": ["ワ"],
+          "kun": ["はな.す"],
+          "meaning": "Hablar, historia",
+          "example": "面白い話。"
+        }
+      ]
+    }
+  ]

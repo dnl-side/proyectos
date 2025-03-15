@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sección de Kanji en desarrollo - Aprender Japonés">
-    <meta name="keywords" content="japonés, kanji, aprender japonés">
+    <meta name="description" content="Detalles de Kanji - Aprender Japonés">
+    <meta name="keywords" content="kanji, japonés, aprender japonés, escritura japonesa">
     <meta name="author" content="Daniel">
-    <meta name="robots" content="index, follow">
-    <title>Aprender Japonés - Kanji</title>
+    <title>Detalle Kanji</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://unpkg.com/svg-path-properties@1.1.0/dist/svg-path-properties.min.js"></script>
 </head>
 <body>
     <header>
-        <h1>Aprender Japonés</h1>
+        <h1>Detalle del Kanji</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -25,16 +25,20 @@
     </header>
 
     <main>
-        <section class="intro">
-            <h2>Kanji</h2>
-            <p>¡Estamos trabajando para usted!</p>
-            <p>Pronto tendremos recursos para aprender Kanji de manera sencilla y efectiva. Vuelve más adelante para explorar esta sección.</p>
-            <a href="index.html" class="btn">Volver al Inicio</a>
+        <section class="detalle">
+            <h2 id="kanji-title"></h2>
+            <p><strong>Nivel:</strong> <span id="kanji-level"></span></p>
+            <p><strong>Lectura On'yomi:</strong> <span id="kanji-onyomi"></span></p>
+            <p><strong>Lectura Kun'yomi:</strong> <span id="kanji-kunyomi"></span></p>
+            <p><strong>Significado:</strong> <span id="kanji-meaning"></span></p>
+            <p><strong>Ejemplo:</strong> <span id="kanji-example"></span></p>
+            <!-- Canvas se agrega dinámicamente por JS -->
         </section>
     </main>
 
     <footer>
-        <p>© 2025 Aprender Japonés. Todos los derechos reservados.</p>
+        <p>© 2025 Aprende Japonés. Todos los derechos reservados.</p>
     </footer>
+    <script src="js/detalle-kanji.js"></script>
 </body>
 </html>
