@@ -152,7 +152,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        startSlider();
+        // Esperar a que las imágenes se carguen antes de iniciar el slider
+        const images = sliderContainer.querySelectorAll('img');
+        let loadedImages = 0;
+
+        if (images.length > 0) {
+            images.forEach(img => {
+                img.onload = () => {
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        startSlider();
+                    }
+                };
+                img.onerror = () => {
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        startSlider();
+                    }
+                };
+                // Si la imagen ya está cargada (por ejemplo, desde la caché)
+                if (img.complete) {
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        startSlider();
+                    }
+                }
+            });
+        } else {
+            startSlider(); // Si no hay imágenes (como en el slider de videos), iniciar inmediatamente
+        }
     }
 
     // Configuración del slider de videos
