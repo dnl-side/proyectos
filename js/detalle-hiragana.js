@@ -432,14 +432,14 @@ function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX,
     }
 
     // 3. Validar alineación con el SVG
-    const tolerance = 60; // Tolerancia en píxeles
+    const tolerance = 20; // Tolerancia reducida a 20 píxeles como en Flutter
     let isAligned = true;
 
     const pathProperties = new svgPathProperties.svgPathProperties(svgPathData);
     const totalLength = pathProperties.getTotalLength();
 
     const samplePoints = [];
-    const numSamples = 500; // Número de puntos a muestrear
+    const numSamples = 2000; // Aumentar la densidad de puntos muestreados
     const step = totalLength / numSamples;
 
     for (let i = 0; i <= numSamples; i++) {
