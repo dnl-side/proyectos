@@ -5,15 +5,17 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
-
 body {
     background-color: #f4f4f4;
     color: #333;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+}
+
+ul {
+    text-align: left; 
 }
 
 /* Header */
@@ -42,6 +44,80 @@ nav ul li a {
 
 nav ul li a:hover {
     text-decoration: underline;
+}
+
+/* Estilos para las secciones de beneficios y cómo estudiar */
+.beneficios, .como-estudiar {
+    margin: 30px auto;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.beneficios h2, .como-estudiar h2 {
+    color: #d32f2f;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.beneficios p, .como-estudiar p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #333;
+    text-align: center;
+}
+
+.beneficios ul, .como-estudiar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.beneficios ul li, .como-estudiar ul li {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    transition: background 0.3s;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.beneficios ul li:hover, .como-estudiar ul li:hover {
+    background: #ffebee;
+}
+
+/* Estilo para los emojis como íconos */
+.beneficios ul li::before, .como-estudiar ul li::before {
+    content: attr(data-icon); /* Usaremos un atributo data-icon para los emojis */
+    margin-right: 15px;
+    font-size: 1.5em;
+}
+
+/* Ajustar responsividad */
+@media (max-width: 600px) {
+    .beneficios, .como-estudiar {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .beneficios h2, .como-estudiar h2 {
+        font-size: 1.3em;
+    }
+
+    .beneficios ul li, .como-estudiar ul li {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .beneficios ul li::before, .como-estudiar ul li::before {
+        margin-right: 10px;
+        font-size: 1.3em;
+    }
 }
 
 /* Main */
