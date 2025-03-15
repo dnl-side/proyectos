@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nextBtn,
             titleContainer,
             intervalTime = 5000,
-            sliderName = "Slider" // Para identificar el slider en los logs
+            sliderName = "Slider"
         } = config;
 
         let currentIndex = 0;
@@ -87,8 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 img.alt = item.alt;
                 img.className = slideClass;
                 if (index === 0) img.classList.add("active");
+                img.onload = () => {
+                    console.log(`Imagen ${index} cargada: ${item.src}`);
+                };
                 img.onerror = () => {
-                    console.error(`Error al cargar la imagen: ${item.src}`);
+                    console.error(`Error al cargar la imagen ${index}: ${item.src}`);
                 };
                 slide.appendChild(img);
             }
@@ -119,7 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 slide.classList.toggle("active", isActive);
                 const img = slide.querySelector('img');
                 if (img) {
-                    img.style.opacity = isActive ? '1' : '0'; // Asegurar que solo la imagen activa sea visible
+                    img.style.opacity = isActive ? '1' : '0'; // Asegurar visibilidad
+                    img.style.display = isActive ? 'block' : 'none'; // Asegurar que solo el activo sea visible
                 }
             });
 
