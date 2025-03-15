@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         src: slide.src,
         alt: slide.alt
     }));
+    console.log("Gallery Items:", galleryItems); // Depuración para verificar el orden
 
     // Función para redimensionar imágenes usando canvas
     function resizeImage(imgSrc, callback) {
@@ -47,11 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Convertir el canvas a una URL de datos (data URL)
             const resizedImage = canvas.toDataURL('image/jpeg', 0.8); // 0.8 es la calidad (0 a 1)
+            console.log(`Imagen redimensionada generada para: ${imgSrc}`); // Depuración
             callback(resizedImage);
         };
 
         img.onerror = () => {
-            console.error(`Error al cargar la imagen: ${imgSrc}`);
+            console.error(`Error al cargar la imagen original: ${imgSrc}`);
             callback(imgSrc); // Usar la imagen original si falla
         };
     }
@@ -120,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.className = slideClass;
                     if (index === 0) img.classList.add("active");
                     img.onload = () => {
-                        // Asegurar que la imagen esté lista antes de añadirla
+                        console.log(`Imagen ${index} cargada: ${resizedSrc}`); // Depuración
                         slide.appendChild(img);
                         sliderContainer.appendChild(slide);
                         loadedItems++;
@@ -129,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     };
                     img.onerror = () => {
-                        console.error(`Error al cargar la imagen redimensionada: ${resizedSrc}`);
+                        console.error(`Error al cargar la imagen redimensionada ${index}: ${resizedSrc}`);
                         slide.appendChild(img); // Usar la imagen original si falla
                         sliderContainer.appendChild(slide);
                         loadedItems++;
@@ -165,7 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index < 0) index = items.length - 1;
 
             slides.forEach((slide, i) => {
-                slide.classList.toggle("active", i === index);
+                const isActive = i === index;
+                slide.classList.toggle("active", isActive);
+                const img = slide.querySelector('img');
+                if (img) {
+                    img.style.opacity = isActive ? '1' : '0'; // Asegurar que solo la imagen activa sea visible
+                }
             });
 
             dots.forEach((dot, i) => {
@@ -219,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slideClass: "video-slide",
         dotContainer: document.querySelector(".video .slider-dots"),
         prevBtn: document.getElementById("prev-slide"),
-        nextBtn: document.getElementById("next-slide"),
+        nextBtn: document.getElementById("next-next-slide"),
         titleContainer: document.getElementById("video-title"),
         intervalTime: 5000
     });
