@@ -419,24 +419,27 @@ function setupCanvas(svgPathData, requiredStrokes, viewBoxWidth, viewBoxHeight) 
 
 // 8) VALIDACIÓN DEL DIBUJO
 function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX, offsetY, scale) {
+    // 1. Validar si hay trazos
     if (strokes.length === 0) {
         alert("Por favor, realiza algunos trazos antes de validar.");
         return;
     }
 
+    // 2. Comparar cantidad de trazos con los requeridos
     if (userStrokeCount !== requiredStrokes) {
         alert(`Cantidad de trazos incorrecta. Realizaste ${userStrokeCount}/${requiredStrokes}.`);
         return;
     }
 
-    const tolerance = 60;
+    // 3. Validar alineación con el SVG
+    const tolerance = 60; // Tolerancia en píxeles
     let isAligned = true;
 
     const pathProperties = new svgPathProperties.svgPathProperties(svgPathData);
     const totalLength = pathProperties.getTotalLength();
 
     const samplePoints = [];
-    const numSamples = 500;
+    const numSamples = 500; // Número de puntos a muestrear
     const step = totalLength / numSamples;
 
     for (let i = 0; i <= numSamples; i++) {
@@ -445,31 +448,41 @@ function validateDrawing(svgPathData, requiredStrokes, userStrokeCount, offsetX,
         samplePoints.push({ x: point.x, y: point.y });
     }
 
-    for (const stroke of strokes) {
-        for (const point of stroke) {
+    // Validar cada punto del trazo del usuario con depuración detallada
+    for (let strokeIndex = 0; strokeIndex < strokes.length; strokeIndex++) {
+        const stroke = strokes[strokeIndex];
+        for (let pointIndex = 0; pointIndex < stroke.length; pointIndex++) {
+            const point = stroke[pointIndex];
             let pointIsValid = false;
+
+            // Transformar el punto del usuario al sistema de coordenadas del SVG
             const transformedX = (point.x - offsetX) / scale;
             const transformedY = (point.y - offsetY) / scale;
 
+            // Calcular la distancia mínima al camino del SVG
             let minDistance = Infinity;
             for (const sample of samplePoints) {
                 const distance = Math.hypot(transformedX - sample.x, transformedY - sample.y);
                 minDistance = Math.min(minDistance, distance);
             }
 
+            console.log(`Trazo ${strokeIndex}, Punto ${pointIndex} (${transformedX}, ${transformedY}): Distancia mínima = ${minDistance}`);
+
             if (minDistance <= tolerance) {
                 pointIsValid = true;
+            } else {
+                console.log(`Punto (${transformedX}, ${transformedY}) fuera de tolerancia. Distancia mínima: ${minDistance}`);
             }
 
             if (!pointIsValid) {
-                console.log(`Punto (${transformedX}, ${transformedY}) fuera de tolerancia. Distancia mínima: ${minDistance}`);
                 isAligned = false;
-                break;
+                break; // Salir del bucle de puntos si un punto falla
             }
         }
-        if (!isAligned) break;
+        if (!isAligned) break; // Salir del bucle de trazos si un trazo falla
     }
 
+    // 4. Mostrar resultado
     if (isAligned) {
         alert("¡Dibujo válido! Los trazos están alineados correctamente.");
     } else {
