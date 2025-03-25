@@ -117,36 +117,33 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index >= items.length) index = 0;
             if (index < 0) index = items.length - 1;
         
+            // Actualizar clases de los slides
             slides.forEach((slide, i) => {
-                const isActive = i === index;
-                slide.classList.toggle("active", isActive);
-        
-                const img = slide.querySelector('img');
-                if (img) {
-                    img.style.opacity = isActive ? '1' : '0';
-                    img.style.display = isActive ? 'block' : 'none';
+                if (i === index) {
+                    slide.classList.add("active");
+                    slide.style.display = "block";  // Mostrar solo el slide activo
+                    slide.style.opacity = "1";      // Asegurar visibilidad
+                } else {
+                    slide.classList.remove("active");
+                    slide.style.display = "none";   // Ocultar los demás slides
+                    slide.style.opacity = "0";
                 }
-        
-                // Alternativa para garantizar la visibilidad
-                slide.style.opacity = isActive ? '1' : '0';
-                slide.style.display = isActive ? 'block' : 'none';
             });
         
+            // Actualizar clases de los dots
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === index);
             });
         
+            // Actualizar el título si está disponible
             if (titleContainer && items[index].title) {
                 titleContainer.textContent = items[index].title;
             }
         
             currentIndex = index;
             console.log(`${sliderName} - Cambiado a slide`, index);
-
-            img.onerror = () => {
-                console.error(`Error al cargar la imagen ${index}: ${item.src}`);
-            };
         }
+        
 
         function startSlider() {
             clearInterval(interval);

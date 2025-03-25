@@ -89,6 +89,8 @@ nav ul li a:hover {
     font-size: 1.1em;
     color: #333;
     max-width: 100%;
+    box-sizing: border-box; 
+    overflow-wrap: break-word;
 }
 
 .beneficios ul li:hover, .como-estudiar ul li:hover {
@@ -108,8 +110,10 @@ nav ul li a:hover {
 .beneficios ul li span, .como-estudiar ul li span {
     flex: 1;
     text-align: left;
-    white-space: normal; /* Permitir división en varias líneas */
-    line-height: 1.4; /* Mejorar legibilidad */
+    white-space: normal;
+    line-height: 1.4;
+    max-width: 100%; /* Asegura que el texto no expanda más allá del contenedor */
+    overflow-wrap: break-word; /* Rompe palabras largas */
 }
 
 /* Envolver el texto en un span para controlar su comportamiento */
@@ -123,6 +127,7 @@ nav ul li a:hover {
     .beneficios, .como-estudiar {
         padding: 15px;
         max-width: 100%;
+        width: 100%; /* Asegura que ocupen el mismo ancho en pantallas pequeñas */
     }
 
     .beneficios h2, .como-estudiar h2 {
