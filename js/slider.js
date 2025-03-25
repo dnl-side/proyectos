@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = document.createElement("img");
                 img.src = item.src;
                 img.alt = item.alt;
-                img.className = slideClass;  // Usamos el mismo slideClass
                 slide.appendChild(img);
 
                 // Verificación de carga de la imagen
