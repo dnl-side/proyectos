@@ -113,30 +113,39 @@ document.addEventListener('DOMContentLoaded', () => {
         function goToSlide(index) {
             const slides = sliderContainer.querySelectorAll(`.${slideClass}`);
             const dots = dotContainer.querySelectorAll(".slider-dot");
-
+        
             if (index >= items.length) index = 0;
             if (index < 0) index = items.length - 1;
-
+        
             slides.forEach((slide, i) => {
                 const isActive = i === index;
                 slide.classList.toggle("active", isActive);
+        
                 const img = slide.querySelector('img');
                 if (img) {
-                    img.style.opacity = isActive ? '1' : '0'; // Asegurar visibilidad
-                    img.style.display = isActive ? 'block' : 'none'; // Asegurar que solo el activo sea visible
+                    img.style.opacity = isActive ? '1' : '0';
+                    img.style.display = isActive ? 'block' : 'none';
                 }
+        
+                // Alternativa para garantizar la visibilidad
+                slide.style.opacity = isActive ? '1' : '0';
+                slide.style.display = isActive ? 'block' : 'none';
             });
-
+        
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === index);
             });
-
+        
             if (titleContainer && items[index].title) {
                 titleContainer.textContent = items[index].title;
             }
-
+        
             currentIndex = index;
             console.log(`${sliderName} - Cambiado a slide`, index);
+
+            img.onerror = () => {
+                console.error(`Error al cargar la imagen ${index}: ${item.src}`);
+            };
         }
 
         function startSlider() {
