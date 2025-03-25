@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         src: slide.src,
         alt: slide.alt
     }));
-    console.log("Gallery Items:", galleryItems); // Depuración para verificar las imágenes
 
     // Configuración genérica para un slider
     function setupSlider(config) {
@@ -84,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 fallbackLink.style.display = "none";
 
                 iframe.onerror = () => {
-                    console.error(`Error al cargar el video: ${item.src}`);
                     iframe.style.display = "none";
                     fallbackLink.style.display = "block";
                     goToSlide(currentIndex + 1); // Pasa al siguiente slide si un video falla
@@ -135,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             currentIndex = index;
-            console.log(`${sliderName} - Cambiado a slide`, index);
         }
 
         function startSlider() {
@@ -143,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
             interval = setInterval(() => {
                 goToSlide(currentIndex + 1);
             }, intervalTime);
-            console.log(`${sliderName} - Slider iniciado con intervalo de`, intervalTime, "ms");
         }
 
         function pauseSlider() {
@@ -169,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        console.log(`${sliderName} - Slider inicializado con`, items.length, "elementos");
         startSlider();
     }
 

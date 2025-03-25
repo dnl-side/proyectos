@@ -569,8 +569,10 @@ footer {
 
 .gallery-slider {
     position: relative;
-    width: 600px; /* Fijar el ancho para evitar problemas de escala */
-    height: 400px;
+    width: 100%; 
+    max-width: 600px; 
+    height: auto; 
+    aspect-ratio: 4 / 3; 
     overflow: hidden;
     border-radius: 10px;
     margin: 20px 0;
@@ -588,13 +590,13 @@ footer {
 }
 
 .gallery-slide.active {
-    opacity: 1; /* Solo el slide activo debe ser visible */
+    opacity: 1; /
 }
 
 .gallery-slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Mueve object-fit al <img> */
+    height: auto;
+    object-fit: contain; 
 }
 
 .slider-controls {
