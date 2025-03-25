@@ -48,17 +48,26 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0;
         let interval;
 
-        // Limpiar slides y dots existentes para evitar duplicaciones
-        sliderContainer.innerHTML = '';
+        // Determinar si es un slider de imágenes o videos
+        const isImageSlider = slideClass === "gallery-slide";
+
+        // No limpiar el contenedor si es un slider de imágenes (usamos las imágenes del HTML)
+        if (!isImageSlider) {
+            sliderContainer.innerHTML = '';
+        }
         dotContainer.innerHTML = '';
 
-        // Generar los slides y los dots dinámicamente
-        items.forEach((item, index) => {
-            const slide = document.createElement("div");
-            slide.className = slideClass;
-            if (index === 0) slide.classList.add("active");
+        // Obtener los slides (para imágenes, usamos los existentes; para videos, los generamos)
+        let slides;
+        if (isImageSlider) {
+            slides = sliderContainer.querySelectorAll(`.${slideClass}`);
+        } else {
+            // Generar los slides para videos
+            items.forEach((item, index) => {
+                const slide = document.createElement("div");
+                slide.className = slideClass;
+                if (index === 0) slide.classList.add("active");
 
-            if (item.src && item.youtubeLink) { // Para videos
                 const iframe = document.createElement("iframe");
                 iframe.width = "560";
                 iframe.height = "315";
@@ -75,29 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 fallbackLink.style.display = "none";
 
                 iframe.onerror = () => {
+                    console.error(`Error al cargar el video: ${item.src}`);
                     iframe.style.display = "none";
                     fallbackLink.style.display = "block";
+                    goToSlide(currentIndex + 1); // Pasa al siguiente slide si un video falla
                 };
 
                 slide.appendChild(iframe);
                 slide.appendChild(fallbackLink);
-            } else { // Para imágenes
-                const img = document.createElement("img");
-                img.src = item.src;
-                img.alt = item.alt;
-                slide.appendChild(img);
+                sliderContainer.appendChild(slide);
+            });
+            slides = sliderContainer.querySelectorAll(`.${slideClass}`);
+        }
 
-                // Verificación de carga de la imagen
-                img.onload = () => {
-                    console.log(`Imagen cargada correctamente: ${item.src}`);
-                };
-                img.onerror = () => {
-                    console.error(`Error al cargar la imagen: ${item.src}`);
-                };
-            }
-
-            sliderContainer.appendChild(slide);
-
+        // Generar los dots dinámicamente
+        items.forEach((_, index) => {
             const dot = document.createElement("div");
             dot.className = "slider-dot";
             if (index === 0) dot.classList.add("active");
@@ -105,18 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
             dotContainer.appendChild(dot);
         });
 
-        // Mostrar el título inicial (si aplica)
+        // Mostrar el título inicial (si aplica, para videos)
         if (titleContainer && items[0].title) {
             titleContainer.textContent = items[0].title;
         }
 
         function goToSlide(index) {
-            const slides = sliderContainer.querySelectorAll(`.${slideClass}`);
             const dots = dotContainer.querySelectorAll(".slider-dot");
-        
+
             if (index >= items.length) index = 0;
             if (index < 0) index = items.length - 1;
-        
+
             slides.forEach((slide, i) => {
                 if (i === index) {
                     slide.classList.add("active");
@@ -124,20 +124,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     slide.classList.remove("active");
                 }
             });
-        
+
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === index);
             });
-        
-            // Actualizar el título si está disponible
+
+            // Actualizar el título si está disponible (para videos)
             if (titleContainer && items[index].title) {
                 titleContainer.textContent = items[index].title;
             }
-        
+
             currentIndex = index;
             console.log(`${sliderName} - Cambiado a slide`, index);
         }
-        
 
         function startSlider() {
             clearInterval(interval);
