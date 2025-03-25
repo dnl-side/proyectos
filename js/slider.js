@@ -118,20 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index >= items.length) index = 0;
             if (index < 0) index = items.length - 1;
         
-            // Actualizar clases de los slides
             slides.forEach((slide, i) => {
                 if (i === index) {
                     slide.classList.add("active");
-                    slide.style.display = "block";  // Mostrar solo el slide activo
-                    slide.style.opacity = "1";      // Asegurar visibilidad
                 } else {
                     slide.classList.remove("active");
-                    slide.style.display = "none";   // Ocultar los demás slides
-                    slide.style.opacity = "0";
                 }
             });
         
-            // Actualizar clases de los dots
             dots.forEach((dot, i) => {
                 dot.classList.toggle("active", i === index);
             });
