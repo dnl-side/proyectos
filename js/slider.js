@@ -85,15 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = document.createElement("img");
                 img.src = item.src;
                 img.alt = item.alt;
-                img.className = slideClass;
-                if (index === 0) img.classList.add("active");
+                img.className = slideClass;  // Usamos el mismo slideClass
+                slide.appendChild(img);
+
+                // Verificación de carga de la imagen
                 img.onload = () => {
-                    console.log(`Imagen ${index} cargada: ${item.src}`);
+                    console.log(`Imagen cargada correctamente: ${item.src}`);
                 };
                 img.onerror = () => {
-                    console.error(`Error al cargar la imagen ${index}: ${item.src}`);
+                    console.error(`Error al cargar la imagen: ${item.src}`);
                 };
-                slide.appendChild(img);
             }
 
             sliderContainer.appendChild(slide);
