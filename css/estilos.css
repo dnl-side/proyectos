@@ -658,3 +658,29 @@ footer {
 .hidden {
     display: none;
 }
+
+header {
+    background-color: #d32f2f;
+    color: white;
+    padding: 20px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+
+    /* Centrar horizontalmente */
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}

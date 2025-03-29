@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videos = [
         {
             src: "https://www.youtube.com/embed/zaLrt9orTeU",
-            title: "Video de prueba para aprender japonés",
+            title: "Katakana",
             youtubeLink: "https://www.youtube.com/watch?v=zaLrt9orTeU"
         },
         {
