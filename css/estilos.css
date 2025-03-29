@@ -654,3 +654,7 @@ footer {
         height: 8px;
     }
 }
+
+.hidden {
+    display: none;
+}
