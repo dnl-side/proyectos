@@ -2,85 +2,111 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contáctanos para clases particulares de japonés - Aprender Japonés">
-    <meta name="keywords" content="japonés, clases particulares, contacto, aprender japonés">
-    <meta name="author" content="Daniel">
-    <meta name="robots" content="index, follow">
-    <title>Aprender Japonés - Contacto</title>
-    <link rel="stylesheet" href="css/estilos.css">
-    <style>
-        /* Estilos adicionales para el formulario */
-        form {
-            max-width: 500px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    <title>Solicitud de Clases de Japonés</title>
+    <link rel="stylesheet" href="css/formulario.css">
+    <script>
+        function toggleJLPT(select) {
+            document.getElementById('jlptNivel').style.display = select.checked ? 'block' : 'none';
         }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            text-align: left;
+        function toggleKanken(select) {
+            document.getElementById('kankenNivel').style.display = select.checked ? 'block' : 'none';
         }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        function toggleOtroLibro(select) {
+            document.getElementById('otroLibroDescripcion').style.display = select.value === 'Otro' ? 'block' : 'none';
         }
-        button {
-            background: #d32f2f;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
+        function resetForm() {
+            document.getElementById("solicitudForm").reset();
+            document.getElementById('jlptNivel').style.display = 'none';
+            document.getElementById('kankenNivel').style.display = 'none';
+            document.getElementById('otroLibroDescripcion').style.display = 'none';
         }
-        button:hover {
-            background: #a12323;
-        }
-    </style>
+    </script>
 </head>
 <body>
-    <header>
-        <h1>Aprender Japonés</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="hiragana.html">Hiragana</a></li>
-                <li><a href="katakana.html">Katakana</a></li>
-                <li><a href="kanji.html">Kanji</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-
     <main>
-        <section class="intro">
-            <h2>Contacto</h2>
-            <p>¿Interesado en clases particulares de japonés? Completa el formulario y te responderemos pronto.</p>
-        </section>
-
-        <form action="https://formspree.io/f/xkgjgonv" method="POST">
+        <h1>Solicitud de Clases Particulares de Japonés</h1>
+        <p>Completa el formulario para ayudarnos a conocer tu nivel y necesidades.</p>
+        <form id="solicitudForm" action="https://formspree.io/f/xkgjgonv" method="POST">
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
-        
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required placeholder="tuemail@example.com">
-        
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
-        
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <fieldset>
+                <legend>¿Qué sabes hasta ahora?</legend>
+                <label><input type="checkbox" name="saberes" value="Hiragana"> Hiragana</label>
+                <label><input type="checkbox" name="saberes" value="Katakana"> Katakana</label>
+                <label><input type="checkbox" name="saberes" value="Kanji"> Kanji</label>
+            </fieldset>
+
+            <label for="nivelKanji">Cantidad estimada de Kanjis conocidos:</label>
+            <select name="nivelKanji" id="nivelKanji">
+                <option value="1-50">1-50</option>
+                <option value="51-100">51-100</option>
+                <option value="101-150">101-150</option>
+                <option value="151-300">151-300</option>
+                <option value="301-600">301-600</option>
+                <option value="601-1000">601-1000</option>
+                <option value="1001-1500">1001-1500</option>
+                <option value="1501-2158">1501-2158 (Jōyō Kanji)</option>
+            </select>
+
+            <fieldset>
+                <legend>¿Has rendido exámenes oficiales?</legend>
+                <label><input type="checkbox" onclick="toggleJLPT(this)"> JLPT</label>
+                <div id="jlptNivel" style="display: none;">
+                    <label for="nivelJLPT">Nivel JLPT:</label>
+                    <select name="nivelJLPT" id="nivelJLPT">
+                        <option value="N5">N5</option>
+                        <option value="N4">N4</option>
+                        <option value="N3">N3</option>
+                        <option value="N2">N2</option>
+                        <option value="N1">N1</option>
+                    </select>
+                </div>
+
+                <label><input type="checkbox" onclick="toggleKanken(this)"> Kanji Kentei</label>
+                <div id="kankenNivel" style="display: none;">
+                    <label for="nivelKanken">Nivel Kanji Kentei:</label>
+                    <select name="nivelKanken" id="nivelKanken">
+                        <option value="10級">10級</option>
+                        <option value="9級">9級</option>
+                        <option value="8級">8級</option>
+                        <option value="7級">7級</option>
+                        <option value="6級">6級</option>
+                        <option value="5級">5級</option>
+                        <option value="4級">4級</option>
+                        <option value="3級">3級</option>
+                        <option value="準2級">準2級</option>
+                        <option value="2級">2級</option>
+                        <option value="準1級">準1級</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <label for="libro">¿Con qué libro has estudiado antes?</label>
+            <select name="libro" id="libro" onchange="toggleOtroLibro(this)">
+                <option value="Minna no Nihongo">Minna no Nihongo</option>
+                <option value="Marugoto">Marugoto</option>
+                <option value="Irodori">Irodori</option>
+                <option value="Otro">Otro</option>
+            </select>
+
+            <div id="otroLibroDescripcion" style="display: none;">
+                <label for="otroLibro">Describe el libro:</label>
+                <input type="text" name="otroLibro" id="otroLibro">
+            </div>
+
+            <label for="comentarios">Comentarios adicionales:</label>
+            <textarea name="comentarios" id="comentarios" rows="4" placeholder="¿Hay algo más que deberíamos saber?"></textarea>
+
+            <button type="button" onclick="resetForm()">Borrar</button>
             <button type="submit">Enviar</button>
         </form>
     </main>
-
-    <footer>
-        <p>© 2025 Aprender Japonés. Todos los derechos reservados.</p>
-    </footer>
 </body>
 </html>
