@@ -112,6 +112,7 @@ body {
 .embed-sketchfab {
   position: relative;
   width: 100%;
+  max-width: 720px;
   height: 0;
   overflow: hidden;
   border-radius: 12px;
