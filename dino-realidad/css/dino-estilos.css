@@ -108,14 +108,15 @@ body {
   }
 
   /* Contenedor responsive para iframes y objetos embebidos */
-.embed-responsive {
+  .embed-responsive {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* Proporción 16:9 */
+    padding-bottom: 60%; /* Aumenta el alto visual (antes 56.25%) */
     height: 0;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #000;
   }
   
   .embed-responsive iframe {
