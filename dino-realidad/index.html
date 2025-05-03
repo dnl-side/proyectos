@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DinoRealidad - Museo Historia Natural</title>
+  <link rel="stylesheet" href="css/dino-estilos.css">
+</head>
+<body>
+  <header>
+    <h1>DinoRealidad: Viaje al Pasado</h1>
+    <p>Una experiencia inmersiva con Realidad Aumentada</p>
+  </header>
+
+  <section id="intro">
+    <video controls autoplay muted>
+      <source src="videos/intro-sala.mp4" type="video/mp4">
+      Tu navegador no soporta videos HTML5.
+    </video>
+    <p>Explora la Sala Azul del Museo con tecnología RA y modelos interactivos.</p>
+  </section>
+
+  <section id="modelo-trex">
+    <h2>Explora el T-Rex en 3D</h2>
+  
+    <div class="sketchfab-embed-wrapper">
+      <iframe title="Tyrannosaurus Rex" frameborder="0"
+        allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"
+        allow="autoplay; fullscreen; xr-spatial-tracking"
+        xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
+        width="100%" height="480"
+        src="https://sketchfab.com/models/ea69a7088e1e481fb14723dcc31088d5/embed">
+      </iframe>
+      <p style="font-size: 13px; text-align: center; margin-top: 8px;">
+        Modelo por <a href="https://sketchfab.com/joshmalosh" target="_blank" rel="nofollow">Joshua Shahinian</a> en <a href="https://sketchfab.com" target="_blank" rel="nofollow">Sketchfab</a>
+      </p>
+    </div>
+  
+    <button id="btn-rugido">🔊 Escuchar rugido del T-Rex</button>
+  </section>
+
+  <section id="accesibilidad">
+    <h2>Diseñado para todos</h2>
+    <p>Compatible con smartphones, tablets y pantallas táctiles. Idiomas: 🇪🇸 🇬🇧 🇫🇷</p>
+  </section>
+
+  <footer>
+    <p>Museo de Historia Natural de Londres - Proyecto Educativo 2025</p>
+  </footer>
+
+  <script src="js/interaccion.js"></script>
+</body>
+</html>
