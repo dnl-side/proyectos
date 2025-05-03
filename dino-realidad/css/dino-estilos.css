@@ -65,6 +65,17 @@ body {
   button:hover {
     background-color: #8b692b;
   }
+
+  section ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
   
   /* Pie de página */
   footer {
@@ -94,6 +105,26 @@ body {
       padding: 1rem;
       font-size: 1.1rem;
     }
+  }
+
+  /* Contenedor responsive para iframes y objetos embebidos */
+.embed-responsive {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Proporción 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .embed-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
   
   @keyframes shake {
