@@ -108,25 +108,35 @@ body {
   }
 
   /* Contenedor responsive para iframes y objetos embebidos */
-  .embed-responsive {
-    position: relative;
-    width: 100%;
-    padding-bottom: 60%; /* Aumenta el alto visual (antes 56.25%) */
-    height: 0;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    background: #000;
-  }
-  
-  .embed-responsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
+.embed-youtube,
+.embed-sketchfab {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #000;
+}
+
+.embed-youtube {
+  padding-bottom: 56.25%; /* Proporción clásica 16:9 */
+}
+
+.embed-sketchfab {
+  padding-bottom: 65%; /* Un poco más alto para ver mejor el 3D */
+}
+
+.embed-youtube iframe,
+.embed-sketchfab iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
   
   @keyframes shake {
     0% { transform: translateX(0px); }
