@@ -13,12 +13,19 @@
   </header>
 
   <section id="intro">
-    <video controls autoplay muted>
-      <source src="videos/intro-sala.mp4" type="video/mp4">
-      Tu navegador no soporta videos HTML5.
-    </video>
+    <h2>Introducción al Proyecto</h2>
+    <div class="video-container">
+      <iframe width="100%" height="400"
+        src="https://www.youtube.com/embed/p7swrcz_b-w"
+        title="DinoRealidad - Video Intro"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
     <p>Explora la Sala Azul del Museo con tecnología RA y modelos interactivos.</p>
   </section>
+  
 
   <section id="modelo-trex">
     <h2>Explora el T-Rex en 3D</h2>
@@ -39,10 +46,42 @@
     <button id="btn-rugido">🔊 Escuchar rugido del T-Rex</button>
   </section>
 
-  <section id="accesibilidad">
-    <h2>Diseñado para todos</h2>
-    <p>Compatible con smartphones, tablets y pantallas táctiles. Idiomas: 🇪🇸 🇬🇧 🇫🇷</p>
+  <section id="presentacion">
+    <h2>Transformando la experiencia en la Sala de Dinosaurios</h2>
+    <img src="img/dino-sala.png" alt="Sala de Dinosaurios - Museo" />
+    <ul>
+      <li>El Museo de Historia Natural de Londres es un referente mundial en ciencia y cultura.</li>
+      <li>Su Sala de Dinosaurios es una de las más visitadas, pero la interacción sigue siendo limitada.</li>
+      <li>Esta propuesta busca integrar tecnologías multimedia para enriquecer la experiencia del visitante.</li>
+    </ul>
   </section>
+  
+  <section id="concepto">
+    <h2>Concepto de la Propuesta</h2>
+    <p>
+      El objetivo es ofrecer una experiencia inmersiva mediante el uso de <strong>realidad aumentada</strong>, 
+      <strong>modelos 3D</strong> y <strong>audio interactivo</strong>.
+    </p>
+    <p>
+      Los visitantes podrán visualizar cómo se movían y vivían los dinosaurios, en una propuesta 
+      <em>educativa, lúdica e inclusiva</em> adaptada a todas las edades.
+    </p>
+    <img src="img/concepto-propuesta.png" alt="Concepto de la experiencia" />
+  </section>
+  
+  <section id="recorrido">
+    <h2>Recorrido Interactivo por la Sala Azul</h2>
+    <p>
+      El recorrido está diseñado para ser explorado de forma intuitiva:
+    </p>
+    <ul>
+      <li>Escanear un fósil → aparece dinosaurio en RA</li>
+      <li>Escuchar su rugido o comportamiento</li>
+      <li>Ver videos sobre su entorno natural</li>
+    </ul>
+    <img src="img/mapa-sala.png" alt="Mapa interactivo del recorrido" />
+  </section>
+  
 
   <footer>
     <p>Museo de Historia Natural de Londres - Proyecto Educativo 2025</p>
