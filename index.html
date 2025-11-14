@@ -12,10 +12,11 @@
 </head>
 <body>
     <header>
-        <h1>Bienvenido a Aprender Japonés</h1>
+        <h1>日本語を学ぼう - Aprender Japonés</h1>
+        <button class="mobile-menu-toggle" aria-label="Abrir menú">☰</button>
         <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
+            <ul id="nav-menu">
+                <li><a href="index.html" class="active">Inicio</a></li>
                 <li><a href="hiragana.html">Hiragana</a></li>
                 <li><a href="katakana.html">Katakana</a></li>
                 <li><a href="kanji.html">Kanji</a></li>
@@ -25,6 +26,15 @@
     </header>
 
     <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>¡Aprende Japonés!</h1>
+                <p>Domina Hiragana, Katakana y Kanji con nuestro sistema interactivo de aprendizaje</p>
+                <a href="hiragana.html" class="btn">Comenzar Ahora</a>
+            </div>
+        </section>
+
         <section class="intro">
             <h2>¿Por qué aprender japonés?</h2>
             <p>El japonés es un idioma fascinante con una rica historia y cultura. Ya sea que quieras viajar, estudiar, trabajar o disfrutar de anime y manga en su idioma original, aprender japonés puede abrirte muchas puertas.</p>
@@ -41,8 +51,6 @@
                 <div class="slider-dots"></div>
                 <button class="next-slide">></button>
             </div>
-        
-            <a href="hiragana.html" class="btn">¡Empieza ahora!</a>
         </section>
 
         <section class="beneficios">
@@ -99,6 +107,7 @@
     <footer>
         <p>© 2025 Aprender Japonés. Todos los derechos reservados.</p>
     </footer>
+    <script src="js/main.js"></script>
     <script src="js/slider.js"></script>
 </body>
 </html>
