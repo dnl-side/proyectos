@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan estructurado JLPT N5 con diagnóstico y seguimiento de progreso.">
+    <title>Plan JLPT N5 | Aprender Japonés</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header>
+        <h1>Plan estructurado JLPT N5</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="hiragana.html">Hiragana</a></li>
+                <li><a href="katakana.html">Katakana</a></li>
+                <li><a href="kanji.html">Kanji</a></li>
+                <li><a href="jlpt-plan.html">Plan JLPT</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="plan-intro">
+            <h2>Inicio profesional de la ruta N5</h2>
+            <p>Este panel transforma el estudio en una ruta medible: diagnóstico inicial, módulos priorizados y seguimiento de progreso.</p>
+        </section>
+
+        <section class="diagnostic-card">
+            <h2>Diagnóstico inicial (0-5 por competencia)</h2>
+            <form id="diagnostic-form" class="diagnostic-form">
+                <label>Kana
+                    <input type="number" min="0" max="5" name="kana" required>
+                </label>
+                <label>Gramática
+                    <input type="number" min="0" max="5" name="grammar" required>
+                </label>
+                <label>Vocabulario
+                    <input type="number" min="0" max="5" name="vocabulary" required>
+                </label>
+                <label>Lectura
+                    <input type="number" min="0" max="5" name="reading" required>
+                </label>
+                <label>Listening
+                    <input type="number" min="0" max="5" name="listening" required>
+                </label>
+                <button class="btn" type="submit">Guardar diagnóstico</button>
+            </form>
+            <div id="diagnostic-result" class="diagnostic-result" aria-live="polite"></div>
+        </section>
+
+        <section class="progress-card">
+            <h2>Seguimiento</h2>
+            <p id="progress-summary"></p>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progreso módulos N5">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </section>
+
+        <section class="modules-grid-section">
+            <h2>Módulos de estudio N5</h2>
+            <div id="modules-container" class="modules-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Aprender Japonés. Plataforma en profesionalización progresiva.</p>
+    </footer>
+
+    <script src="js/progreso.js"></script>
+    <script src="js/jlpt-plan.js"></script>
+</body>
+</html>

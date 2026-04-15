@@ -1,0 +1,104 @@
+{
+  "level": "N5",
+  "title": "Ruta JLPT N5",
+  "goal": "Construir una base sólida para leer, entender y usar japonés básico en situaciones cotidianas.",
+  "modules": [
+    {
+      "id": "n5-kana-hiragana",
+      "type": "kana",
+      "title": "Hiragana completo",
+      "objectives": [
+        "Reconocer y pronunciar los 46 hiragana.",
+        "Distinguir sonidos parecidos (shi/chi/tsu)."
+      ],
+      "estimatedHours": 8,
+      "resources": ["hiragana.html"],
+      "milestone": "Leer palabras simples en hiragana sin ayuda."
+    },
+    {
+      "id": "n5-kana-katakana",
+      "type": "kana",
+      "title": "Katakana completo",
+      "objectives": [
+        "Reconocer y pronunciar los 46 katakana.",
+        "Leer préstamos del inglés adaptados al japonés."
+      ],
+      "estimatedHours": 8,
+      "resources": ["katakana.html"],
+      "milestone": "Leer palabras comunes en katakana y diferenciar grafías similares."
+    },
+    {
+      "id": "n5-gramatica-basica",
+      "type": "grammar",
+      "title": "Gramática base",
+      "objectives": [
+        "Dominar partículas básicas (は, が, を, に, で, と, も).",
+        "Usar presente/pasado afirmativo y negativo.",
+        "Formar preguntas y oraciones simples."
+      ],
+      "estimatedHours": 16,
+      "resources": ["docs/briefing-profesionalizacion-jlpt.md"],
+      "milestone": "Construir oraciones útiles para presentarse y hablar de rutinas."
+    },
+    {
+      "id": "n5-vocabulario-esencial",
+      "type": "vocabulary",
+      "title": "Vocabulario esencial",
+      "objectives": [
+        "Aprender vocabulario frecuente de uso diario.",
+        "Asociar vocabulario con contexto (casa, estudio, tiempo, transporte)."
+      ],
+      "estimatedHours": 20,
+      "resources": ["kanji.html"],
+      "milestone": "Comprender y usar palabras comunes en frases cortas."
+    },
+    {
+      "id": "n5-kanji-inicial",
+      "type": "kanji",
+      "title": "Kanji inicial N5",
+      "objectives": [
+        "Reconocer kanji frecuentes N5.",
+        "Relacionar cada kanji con significado, lectura y palabra ejemplo."
+      ],
+      "estimatedHours": 24,
+      "resources": ["kanji.html", "json/kanji-lessons.json"],
+      "milestone": "Identificar kanji N5 clave en vocabulario común."
+    },
+    {
+      "id": "n5-lectura-inicial",
+      "type": "reading",
+      "title": "Lectura inicial",
+      "objectives": [
+        "Leer textos cortos con apoyo de furigana.",
+        "Responder preguntas de comprensión literal."
+      ],
+      "estimatedHours": 10,
+      "resources": [],
+      "milestone": "Completar lecturas básicas de 3-5 líneas con comprensión mínima del 70%."
+    },
+    {
+      "id": "n5-listening-inicial",
+      "type": "listening",
+      "title": "Listening inicial",
+      "objectives": [
+        "Identificar palabras clave y frases comunes en audio lento.",
+        "Reconocer intención básica (saludo, pregunta, instrucción)."
+      ],
+      "estimatedHours": 10,
+      "resources": [],
+      "milestone": "Responder correctamente preguntas simples de audio básico."
+    },
+    {
+      "id": "n5-simulacro",
+      "type": "exam",
+      "title": "Simulacro N5",
+      "objectives": [
+        "Aplicar todo lo aprendido bajo límite de tiempo.",
+        "Identificar brechas para plan de refuerzo."
+      ],
+      "estimatedHours": 6,
+      "resources": [],
+      "milestone": "Aprobar simulacro N5 con objetivo de 65% o superior."
+    }
+  ]
+}
